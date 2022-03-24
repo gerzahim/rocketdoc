@@ -58,18 +58,17 @@
 
     @if($editing)
         <x-inputs.group class="w-full lg:w-6/12">
-            <x-inputs.textarea name="document" label="Document" maxlength="255"
-            >{{ old('document', ($editing ? $release->document : ''))
-            }}</x-inputs.textarea
-            >
+            <x-inputs.textarea name="document" label="Document">
+                {{ old('document', ($editing ? $release->document : '')) }}
+            </x-inputs.textarea>
 
         </x-inputs.group>
-        <x-inputs.group class="w-full lg:w-6/12">
-            <h5 class="font-medium text-gray-700">
-                @lang('crud.releases.inputs.document')
-            </h5>
+{{--        <x-inputs.group class="w-full lg:w-6/12">--}}
+{{--            <h5 class="font-medium text-gray-700">--}}
+{{--                @lang('crud.releases.inputs.document')--}}
+{{--            </h5>--}}
 {{--            {!!  $document_parsed ?? '-' !!}--}}
-            {{  $document_parsed ?? '-' }}
-        </x-inputs.group>
+{{--            {{  $document_parsed ?? '-' }}--}}
+{{--        </x-inputs.group>--}}
     @endif
 </div>

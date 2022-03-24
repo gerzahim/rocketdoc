@@ -26,7 +26,8 @@ class ReleaseUpdateRequest extends FormRequest
         return [
             'name' => ['required', 'max:255', 'string'],
             'project_id' => ['required', 'exists:projects,id'],
-            'document' => ['nullable', 'max:255', 'string'],
+            //'document' => ['nullable', 'max:255', 'string'],
+            'document' => ['nullable', 'string'],
             'released_at' => ['required', 'date'],
             'tickets' => ['array'],
         ];

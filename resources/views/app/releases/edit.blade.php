@@ -19,6 +19,7 @@
                     method="PUT"
                     action="{{ route('releases.update', $release) }}"
                     class="mt-4"
+                    id="editReleaseForm"
                 >
                     @include('app.releases.form-inputs')
 

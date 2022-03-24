@@ -57,19 +57,27 @@
 
 
     @if($editing)
-        <x-inputs.group class="w-full lg:w-6/12">
-            <x-inputs.textarea name="document" label="Document" maxlength="255"
-            >{{ old('document', ($editing ? $release->document : ''))
-            }}</x-inputs.textarea
-            >
+        <input type="hidden" name="document" id="document" value="{{ $release->document }}">
 
-        </x-inputs.group>
-        <x-inputs.group class="w-full lg:w-6/12">
-            <h5 class="font-medium text-gray-700">
-                @lang('crud.releases.inputs.document')
-            </h5>
-{{--            {!!  $document_parsed ?? '-' !!}--}}
-            {{  $document_parsed ?? '-' }}
-        </x-inputs.group>
+        <div class="flex flex-col space-y-2">
+            <label for="editor" class="text-gray-800 font-semibold">Document</label>
+            <div id="editor" class="mt-1 block w-full rounded-md border-gray-600 shadow-sm"></div>
+        </div>
+
+{{--        <x-inputs.group class="w-full lg:w-6/12">--}}
+{{--            <x-inputs.textarea name="document" label="Document" maxlength="255"--}}
+{{--            >{{ old('document', ($editing ? $release->document : ''))--}}
+{{--            }}</x-inputs.textarea--}}
+{{--            >--}}
+
+
     @endif
 </div>
+
+
+<script type="text/javascript">
+
+    {{--alert("Error: " + {{ $release->document }} );--}}
+    {{--LoadDocumentValue({{ $release->document }});--}}
+
+</script>

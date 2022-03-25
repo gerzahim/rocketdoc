@@ -58,10 +58,9 @@
 
     @if($editing)
         <x-inputs.group class="w-full">
-            <x-inputs.textarea name="release-document" id="release-document" label="Document"
-            >{{ old('document', ($editing ? $release->document : ''))
-            }}</x-inputs.textarea
-            >
+            <x-inputs.textarea name="document" id="document" label="Document" rows="5">
+                {{ old('document', ($editing ? $release->document : '')) }}
+            </x-inputs.textarea>
 
         </x-inputs.group>
 {{--        <x-inputs.group class="w-full lg:w-6/12">--}}
@@ -78,9 +77,10 @@
     <script>
         // alert('I\'m coming from child');
         ClassicEditor
-            .create( document.querySelector( '#release-document' ) )
+            .create( document.querySelector( '#document' ) )
             .catch( error => {
                 console.error( error );
             } );
     </script>
+
 @endpush

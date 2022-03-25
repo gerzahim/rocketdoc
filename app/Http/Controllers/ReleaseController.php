@@ -89,14 +89,9 @@ class ReleaseController extends Controller
 
         $tickets = Ticket::get();
 
-        $document_parsed = Str::of($release->document)->markdown();
-//        $document_parsed = Str::of($release->document)->markdown([
-//            'html_input' => 'strip',
-//        ]);
-
         return view(
             'app.releases.edit',
-            compact('release', 'projects', 'tickets', 'document_parsed')
+            compact('release', 'projects', 'tickets')
         );
     }
 
@@ -107,11 +102,12 @@ class ReleaseController extends Controller
      */
     public function update(ReleaseUpdateRequest $request, Release $release)
     {
+
         $this->authorize('update', $release);
 
         $validated = $request->validated();
-        $release->tickets()->sync($request->tickets);
 
+        $release->tickets()->sync($request->tickets);
         $release->update($validated);
 
         return redirect()

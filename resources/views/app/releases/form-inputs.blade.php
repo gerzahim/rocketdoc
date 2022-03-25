@@ -57,7 +57,7 @@
 
 
     @if($editing)
-        <x-inputs.group class="w-full">
+        <x-inputs.group class="w-full prose">
             <x-inputs.textarea name="document" id="document" label="Document" rows="5">
                 {{ old('document', ($editing ? $release->document : '')) }}
             </x-inputs.textarea>
@@ -77,7 +77,26 @@
     <script>
         // alert('I\'m coming from child');
         ClassicEditor
-            .create( document.querySelector( '#document' ) )
+            .create( document.querySelector( '#document' ), {
+                codeBlock: {
+                    languages: [
+                        // Do not render the CSS class for the plain text code blocks.
+                        { language: 'plaintext', label: 'Plain text', class: '' },
+
+                        // Use the "php-code" class for PHP code blocks.
+                        { language: 'php', label: 'PHP', class: 'php-code' },
+
+                        // Use the "js" class for JavaScript code blocks.
+                        // Note that only the first ("js") class will determine the language of the block when loading data.
+                        { language: 'javascript', label: 'JavaScript', class: 'js javascript js-code' },
+
+                        // Python code blocks will have the default "language-python" CSS class.
+                        { language: 'python', label: 'Python' },
+                        { language: 'css', label: 'CSS' },
+                        { language: 'html', label: 'HTML' }
+                    ]
+                }
+            })
             .catch( error => {
                 console.error( error );
             } );

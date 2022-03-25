@@ -57,19 +57,29 @@
 
 
     @if($editing)
-        <x-inputs.group class="w-full lg:w-6/12">
-            <x-inputs.textarea name="document" label="Document" maxlength="255"
-            >{{ old('document', ($editing ? $release->document : ''))
-            }}</x-inputs.textarea
-            >
+        <x-inputs.group class="w-full">
+            <div class="prose">
+                <x-inputs.textarea name="document" id="document" label="Document" rows="5" >
+                    {{ old('document', ($editing ? $release->document : '')) }}
+                </x-inputs.textarea>
+            </div>
 
-        </x-inputs.group>
-        <x-inputs.group class="w-full lg:w-6/12">
-            <h5 class="font-medium text-gray-700">
-                @lang('crud.releases.inputs.document')
-            </h5>
-{{--            {!!  $document_parsed ?? '-' !!}--}}
-            {{  $document_parsed ?? '-' }}
         </x-inputs.group>
     @endif
 </div>
+
+@push('ckeditor-scripts')
+    <script>
+        // alert('I\'m coming from child');
+        ClassicEditor
+            .create( document.querySelector( '#document' ), {
+                licenseKey: '',
+            })
+            .then( editor => {
+                console.log( editor );
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
+@endpush

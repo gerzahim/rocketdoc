@@ -37,3 +37,9 @@
 .button.button-danger:disabled {
     @apply bg-red-200 !important;
 }
+
+
+/* CK EDITOR CUSTOM CSS */
+.prose {
+    max-width: 100%;
+}

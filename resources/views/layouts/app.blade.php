@@ -11,6 +11,7 @@
         
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
+
         <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
         
         <!-- Fonts -->
@@ -28,7 +29,6 @@
         <script type="module">
             import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
         </script>
-        
         @livewireStyles
     </head>
     
@@ -52,10 +52,10 @@
         <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
         
         @if (session()->has('success')) 
-        <script>
-            const notyf = new Notyf({dismissible: true})
-            notyf.success('{{ session('success') }}')
-        </script> 
+            <script>
+                const notyf = new Notyf({dismissible: true})
+                notyf.success('{{ session('success') }}')
+            </script>
         @endif
         
         <script>
@@ -86,5 +86,8 @@
                 })
             })
         </script>
+        <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
+        @stack('ckeditor-scripts')
+        @stack('copy-clipboard-scripts')
     </body>
 </html>

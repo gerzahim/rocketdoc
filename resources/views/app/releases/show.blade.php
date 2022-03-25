@@ -31,12 +31,17 @@
                             }}</span
                         >
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-4 prose">
                         <h5 class="font-medium text-gray-700">
                             @lang('crud.releases.inputs.document')
+                            <button id="button1" onclick="copyToClipboard('document12');return false;">Click to copy</button>
                         </h5>
-                        <span>{{ $release->document ?? '-' }}</span>
+{{--                        <span>{!! $release->document ?? '-' !!}</span>--}}
+                        <article id="document12">
+                            {!! html_entity_decode($release->document) ?? '-' !!}
+                        </article>
                     </div>
+                    <br>
                     <div class="mb-4">
                         <h5 class="font-medium text-gray-700">
                             @lang('crud.releases.inputs.released_at')
@@ -61,4 +66,21 @@
             </x-partials.card>
         </div>
     </div>
+    @push('copy-clipboard-scripts')
+        <script>
+            function copyToClipboard(id) {
+                var r = document.createRange();
+                r.selectNode(document.getElementById(id));
+                window.getSelection().removeAllRanges();
+                window.getSelection().addRange(r);
+                document.execCommand('copy');
+                window.getSelection().removeAllRanges();
+
+                // var copyText = document.querySelector("#document12");
+                // console.log(copyText);
+                // copyText.select();
+                // document.execCommand("copy");
+            }
+        </script>
+    @endpush
 </x-app-layout>

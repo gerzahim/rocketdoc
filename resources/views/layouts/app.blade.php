@@ -52,10 +52,10 @@
         <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
         
         @if (session()->has('success')) 
-        <script>
-            const notyf = new Notyf({dismissible: true})
-            notyf.success('{{ session('success') }}')
-        </script> 
+            <script>
+                const notyf = new Notyf({dismissible: true})
+                notyf.success('{{ session('success') }}')
+            </script>
         @endif
         
         <script>
@@ -86,5 +86,10 @@
                 })
             })
         </script>
+
+        <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+
+        @stack('ckeditor-scripts')
+
     </body>
 </html>

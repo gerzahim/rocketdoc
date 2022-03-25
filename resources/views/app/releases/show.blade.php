@@ -35,7 +35,7 @@
                         <h5 class="font-medium text-gray-700">
                             @lang('crud.releases.inputs.document')
                         </h5>
-                        <span>{{ $release->document ?? '-' }}</span>
+                        <span>{!! $release->document ?? '-' !!}</span>
                     </div>
                     <div class="mb-4">
                         <h5 class="font-medium text-gray-700">

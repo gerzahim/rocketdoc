@@ -11,6 +11,7 @@
         
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
+
         <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
         
         <!-- Fonts -->
@@ -28,7 +29,6 @@
         <script type="module">
             import hotwiredTurbo from 'https://cdn.skypack.dev/@hotwired/turbo';
         </script>
-        
         @livewireStyles
     </head>
     
@@ -86,10 +86,8 @@
                 })
             })
         </script>
-
-        <script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
-
+        <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
         @stack('ckeditor-scripts')
-
+        @stack('copy-clipboard-scripts')
     </body>
 </html>

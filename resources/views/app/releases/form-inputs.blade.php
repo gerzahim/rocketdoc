@@ -57,19 +57,14 @@
 
 
     @if($editing)
-        <x-inputs.group class="w-full prose">
-            <x-inputs.textarea name="document" id="document" label="Document" rows="5">
-                {{ old('document', ($editing ? $release->document : '')) }}
-            </x-inputs.textarea>
+        <x-inputs.group class="w-full">
+            <div class="prose">
+                <x-inputs.textarea name="document" id="document" label="Document" rows="5" >
+                    {{ old('document', ($editing ? $release->document : '')) }}
+                </x-inputs.textarea>
+            </div>
 
         </x-inputs.group>
-{{--        <x-inputs.group class="w-full lg:w-6/12">--}}
-{{--            <h5 class="font-medium text-gray-700">--}}
-{{--                @lang('crud.releases.inputs.document')--}}
-{{--            </h5>--}}
-{{--            {!!  $document_parsed ?? '-' !!}--}}
-{{--            {{  $document_parsed ?? '-' }}--}}
-{{--        </x-inputs.group>--}}
     @endif
 </div>
 
@@ -78,28 +73,13 @@
         // alert('I\'m coming from child');
         ClassicEditor
             .create( document.querySelector( '#document' ), {
-                codeBlock: {
-                    languages: [
-                        // Do not render the CSS class for the plain text code blocks.
-                        { language: 'plaintext', label: 'Plain text', class: '' },
-
-                        // Use the "php-code" class for PHP code blocks.
-                        { language: 'php', label: 'PHP', class: 'php-code' },
-
-                        // Use the "js" class for JavaScript code blocks.
-                        // Note that only the first ("js") class will determine the language of the block when loading data.
-                        { language: 'javascript', label: 'JavaScript', class: 'js javascript js-code' },
-
-                        // Python code blocks will have the default "language-python" CSS class.
-                        { language: 'python', label: 'Python' },
-                        { language: 'css', label: 'CSS' },
-                        { language: 'html', label: 'HTML' }
-                    ]
-                }
+                licenseKey: '',
             })
+            .then( editor => {
+                console.log( editor );
+            } )
             .catch( error => {
                 console.error( error );
             } );
     </script>
-
 @endpush

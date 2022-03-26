@@ -25,7 +25,7 @@ class TemplateUpdateRequest extends FormRequest
     {
         return [
             'name' => ['required', 'max:255', 'string'],
-            'document' => ['nullable', 'max:255', 'string'],
+            'document' => ['nullable', 'string'],
         ];
     }
 }

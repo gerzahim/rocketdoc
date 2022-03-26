@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ReleaseStoreRequest;
 use App\Http\Requests\ReleaseUpdateRequest;
 use App\Models\Template;
+use Carbon\Carbon;
 
 class ReleaseController extends Controller
 {
@@ -135,31 +136,59 @@ class ReleaseController extends Controller
             ->withSuccess(__('crud.common.removed'));
     }
 
+    /*
+     * Get Template
+     */
     public function createDocumentFromTemplate($release)
     {
+        // Get template
         $template = Template::first();
 
-        //return $template->document;
+        // Array containing search term to replace on the Doc
+        $searchVal = ["replaceTerm1", "replaceTerm2", "<p>replaceTerm3</p>", "replaceTerm4", "replaceTerm5"];
 
-        // Array containing search string
-        $searchVal = array("replace1", "replace2", "replace3", "replace4", "replace5");
+        // Get Date release in human Readable Format  => Dec 25, 1975
+        $dt = new Carbon($release->released_at);
+        $release_released_at = $dt->toFormattedDateString();
 
-        // Array containing replace string from  search string
-        $replaceVal = array($release->name, $release->created_at, 'list_tickets', $release->name, 'list_tags');
+        // Array containing values to replace
+        $replaceVal = [$release->name, $release_released_at, $this->getTicketsAssociated($release), $release->name, $this->getTags($release)];
 
+        // return Doc template with custom values replaced.
         return str_replace($searchVal, $replaceVal, $template->document);
 
     }
 
-    public function getTicketsAssociated(){
-        /*
-         <ul><li>TSV4-5112 &nbsp;Custom carousel shows Locked on the Homepage</li><li>TSV4-5107 &nbsp;sentry Exception Admin\ModelController@getDelete</li><li>TSV4-5111 &nbsp; sentry Exception on AccessTokenGuard</li><li>TSV4-5109 &nbsp;Double Insertion on likes/dislikes interaction</li><li>TSV4-5120 &nbsp;Delete name field from “ts_movies” &nbsp;index ES</li></ul>
-         */
+    public function getTicketsAssociated($release){
+
+        $listTickets = "<ul>";
+        foreach($release->tickets as $ticket){
+            $listTickets.="<li> {$ticket->reference} {$ticket->name}</li>";
+        }
+        $listTickets.="</ul>";
+
+        return $listTickets;
+
+        //dd( $release->tickets );
+
+        return "<ul><li>TSV4-5112 &nbsp;Custom carousel shows Locked on the Homepage</li><li>TSV4-5107 &nbsp;sentry Exception Admin\ModelController@getDelete</li><li>TSV4-5111 &nbsp; sentry Exception on AccessTokenGuard</li><li>TSV4-5109 &nbsp;Double Insertion on likes/dislikes interaction</li><li>TSV4-5120 &nbsp;Delete name field from “ts_movies” &nbsp;index ES</li></ul>";
     }
 
 
-    public function getTags()
+    public function getTags($release)
     {
-        /*<pre data-language="Plain text" spellcheck="false"><code class="language-plaintext">TSV4-5112  Custom carousel shows Locked on the Homepage<br>TSV4-5107  sentry Exception Admin\ModelController@getDelete<br>TSV4-5111  sentry Exception on AccessTokenGuard<br>TSV4-5109  Double Insertion on likes/dislikes interaction <br>TSV4-5120  Delete name field from “ts_movies”  index ES</code></pre>*/
+        $listTags = '<pre data-language="Plain text" spellcheck="false"><code class="language-plaintext">';
+        $firsTime = true;
+        foreach($release->tickets as $ticket){
+            if($firsTime){
+                $listTags.= "{$ticket->reference} {$ticket->name}";
+            }else{
+                $listTags.= "<br>{$ticket->reference} {$ticket->name}";
+            }
+            $firsTime = false;
+        }
+        $listTags.="</code></pre>";
+
+        return $listTags;
     }
 }

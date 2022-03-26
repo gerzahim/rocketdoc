@@ -13,7 +13,7 @@
     </x-inputs.group>
 
     <x-inputs.group class="w-full">
-        <x-inputs.textarea name="document" label="Document" maxlength="255"
+        <x-inputs.textarea name="document" label="Document"
             >{{ old('document', ($editing ? $template->document : ''))
             }}</x-inputs.textarea
         >

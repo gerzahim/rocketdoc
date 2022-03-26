@@ -8,7 +8,7 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Requests\ReleaseStoreRequest;
 use App\Http\Requests\ReleaseUpdateRequest;
-use Illuminate\Support\Str;
+use App\Models\Template;
 
 class ReleaseController extends Controller
 {
@@ -89,6 +89,10 @@ class ReleaseController extends Controller
 
         $tickets = Ticket::get();
 
+        if($release->document == null){
+            $release->document = $this->createDocumentFromTemplate($release);
+        }
+
         return view(
             'app.releases.edit',
             compact('release', 'projects', 'tickets')
@@ -129,5 +133,33 @@ class ReleaseController extends Controller
         return redirect()
             ->route('releases.index')
             ->withSuccess(__('crud.common.removed'));
+    }
+
+    public function createDocumentFromTemplate($release)
+    {
+        $template = Template::first();
+
+        //return $template->document;
+
+        // Array containing search string
+        $searchVal = array("replace1", "replace2", "replace3", "replace4", "replace5");
+
+        // Array containing replace string from  search string
+        $replaceVal = array($release->name, $release->created_at, 'list_tickets', $release->name, 'list_tags');
+
+        return str_replace($searchVal, $replaceVal, $template->document);
+
+    }
+
+    public function getTicketsAssociated(){
+        /*
+         <ul><li>TSV4-5112 &nbsp;Custom carousel shows Locked on the Homepage</li><li>TSV4-5107 &nbsp;sentry Exception Admin\ModelController@getDelete</li><li>TSV4-5111 &nbsp; sentry Exception on AccessTokenGuard</li><li>TSV4-5109 &nbsp;Double Insertion on likes/dislikes interaction</li><li>TSV4-5120 &nbsp;Delete name field from “ts_movies” &nbsp;index ES</li></ul>
+         */
+    }
+
+
+    public function getTags()
+    {
+        /*<pre data-language="Plain text" spellcheck="false"><code class="language-plaintext">TSV4-5112  Custom carousel shows Locked on the Homepage<br>TSV4-5107  sentry Exception Admin\ModelController@getDelete<br>TSV4-5111  sentry Exception on AccessTokenGuard<br>TSV4-5109  Double Insertion on likes/dislikes interaction <br>TSV4-5120  Delete name field from “ts_movies”  index ES</code></pre>*/
     }
 }

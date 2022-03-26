@@ -169,9 +169,6 @@ class ReleaseController extends Controller
 
         return $listTickets;
 
-        //dd( $release->tickets );
-
-        return "<ul><li>TSV4-5112 &nbsp;Custom carousel shows Locked on the Homepage</li><li>TSV4-5107 &nbsp;sentry Exception Admin\ModelController@getDelete</li><li>TSV4-5111 &nbsp; sentry Exception on AccessTokenGuard</li><li>TSV4-5109 &nbsp;Double Insertion on likes/dislikes interaction</li><li>TSV4-5120 &nbsp;Delete name field from “ts_movies” &nbsp;index ES</li></ul>";
     }
 
 

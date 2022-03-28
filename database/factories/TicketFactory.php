@@ -22,10 +22,11 @@ class TicketFactory extends Factory
      */
     public function definition()
     {
+        $issueNumber = $this->faker->numberBetween(1000, 9000);
         return [
-            'reference' => $this->faker->text(255),
-            'name' => $this->faker->name,
-            'url' => $this->faker->url,
+            'key'     => 'TSV4-'.$issueNumber,
+            'summary' => $this->faker->sentence,
+            'url'     => 'https://paperstreet.atlassian.net/browse/TSV4-'.$issueNumber,
         ];
     }
 }

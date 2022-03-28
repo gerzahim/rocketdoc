@@ -71,9 +71,9 @@ return [
         'edit_title' => 'Edit Ticket',
         'show_title' => 'Show Ticket',
         'inputs' => [
-            'reference' => 'Reference',
-            'name' => 'Name',
-            'url' => 'Url',
+            'key'     => 'Key',
+            'summary' => 'Summary',
+            'url'     => 'Url',
         ],
     ],
 

@@ -15,7 +15,7 @@ class TemplateSeeder extends Seeder
     public function run()
     {
         Template::factory()
-            ->count(5)
+            ->count(1)
             ->create();
     }
 }

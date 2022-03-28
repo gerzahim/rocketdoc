@@ -7,7 +7,7 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
         
-        <title>rocketdoc</title>
+        <title>🚀 RocketDoc</title>
         
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
@@ -57,6 +57,14 @@
                 notyf.success('{{ session('success') }}')
             </script>
         @endif
+
+        @if (session()->has('error'))
+            <script>
+                const notyf = new Notyf({dismissible: true})
+                notyf.error('{{ session('error') }}')
+            </script>
+        @endif
+
         
         <script>
             /* Simple Alpine Image Viewer */

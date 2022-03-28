@@ -163,7 +163,7 @@ class ReleaseController extends Controller
 
         $listTickets = "<ul>";
         foreach($release->tickets as $ticket){
-            $listTickets.="<li> {$ticket->reference} {$ticket->name}</li>";
+            $listTickets.="<li> {$ticket->key} {$ticket->summary}</li>";
         }
         $listTickets.="</ul>";
 
@@ -178,9 +178,9 @@ class ReleaseController extends Controller
         $firsTime = true;
         foreach($release->tickets as $ticket){
             if($firsTime){
-                $listTags.= "{$ticket->reference} {$ticket->name}";
+                $listTags.= "{$ticket->key} {$ticket->summary}";
             }else{
-                $listTags.= "<br>{$ticket->reference} {$ticket->name}";
+                $listTags.= "<br>{$ticket->key} {$ticket->summary}";
             }
             $firsTime = false;
         }

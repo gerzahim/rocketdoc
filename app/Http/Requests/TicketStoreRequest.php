@@ -24,9 +24,9 @@ class TicketStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'reference' => ['required', 'max:255', 'string'],
-            'name' => ['required', 'max:255', 'string'],
-            'url' => ['required', 'url'],
+            'key'      => ['required', 'max:255', 'string'],
+//            'summary'  => ['required', 'max:255', 'string'],
+//            'url'      => ['required', 'url'],
         ];
     }
 }

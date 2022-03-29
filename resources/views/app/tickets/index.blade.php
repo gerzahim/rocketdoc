@@ -54,10 +54,10 @@
                         <thead class="text-gray-700">
                             <tr>
                                 <th class="px-4 py-3 text-left">
-                                    @lang('crud.tickets.inputs.reference')
+                                    @lang('crud.tickets.inputs.key')
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    @lang('crud.tickets.inputs.name')
+                                    @lang('crud.tickets.inputs.summary')
                                 </th>
                                 <th class="px-4 py-3 text-left">
                                     @lang('crud.tickets.inputs.url')
@@ -69,10 +69,10 @@
                             @forelse($tickets as $ticket)
                             <tr class="hover:bg-gray-50">
                                 <td class="px-4 py-3 text-left">
-                                    {{ $ticket->reference ?? '-' }}
+                                    {{ $ticket->key ?? '-' }}
                                 </td>
                                 <td class="px-4 py-3 text-left">
-                                    {{ $ticket->name ?? '-' }}
+                                    {{ $ticket->summary ?? '-' }}
                                 </td>
                                 <td class="px-4 py-3 text-left">
                                     <a

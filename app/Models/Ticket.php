@@ -11,7 +11,10 @@ class Ticket extends Model
     use HasFactory;
     use Searchable;
 
-    protected $fillable = ['reference', 'name', 'url'];
+    //@TODO
+    // name => summary
+    // "key": "TSV4-5108",
+    protected $fillable = ['key', 'summary', 'url'];
 
     protected $searchableFields = ['*'];
 

@@ -22,11 +22,11 @@
                         </h5>
                         <span>{{ $template->name ?? '-' }}</span>
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-4 prose">
                         <h5 class="font-medium text-gray-700">
                             @lang('crud.templates.inputs.document')
                         </h5>
-                        <span>{{ $template->document ?? '-' }}</span>
+                        <span>{!! $template->document ?? '-' !!}</span>
                     </div>
                 </div>
 

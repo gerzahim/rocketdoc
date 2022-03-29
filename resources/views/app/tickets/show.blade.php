@@ -18,13 +18,13 @@
                 <div class="mt-4 px-4">
                     <div class="mb-4">
                         <h5 class="font-medium text-gray-700">
-                            @lang('crud.tickets.inputs.reference')
+                            @lang('crud.tickets.inputs.key')
                         </h5>
                         <span>{{ $ticket->reference ?? '-' }}</span>
                     </div>
                     <div class="mb-4">
                         <h5 class="font-medium text-gray-700">
-                            @lang('crud.tickets.inputs.name')
+                            @lang('crud.tickets.inputs.summary')
                         </h5>
                         <span>{{ $ticket->name ?? '-' }}</span>
                     </div>

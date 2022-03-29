@@ -56,9 +56,9 @@
                                 <th class="px-4 py-3 text-left">
                                     @lang('crud.templates.inputs.name')
                                 </th>
-                                <th class="px-4 py-3 text-left">
-                                    @lang('crud.templates.inputs.document')
-                                </th>
+{{--                                <th class="px-4 py-3 text-left">--}}
+{{--                                    @lang('crud.templates.inputs.document')--}}
+{{--                                </th>--}}
                                 <th></th>
                             </tr>
                         </thead>
@@ -68,9 +68,9 @@
                                 <td class="px-4 py-3 text-left">
                                     {{ $template->name ?? '-' }}
                                 </td>
-                                <td class="px-4 py-3 text-left">
-                                    {{ $template->document ?? '-' }}
-                                </td>
+{{--                                <td class="px-4 py-3 text-left">--}}
+{{--                                    {{ $template->document ?? '-' }}--}}
+{{--                                </td>--}}
                                 <td
                                     class="px-4 py-3 text-center"
                                     style="width: 134px;"

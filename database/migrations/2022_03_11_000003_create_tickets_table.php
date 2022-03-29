@@ -14,10 +14,9 @@ return new class extends Migration {
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('reference');
-            $table->string('name');
+            $table->string('key');
+            $table->string('summary');
             $table->string('url');
-
             $table->timestamps();
         });
     }

@@ -76,7 +76,7 @@
                                     }}
                                 </td>
                                 <td class="px-4 py-3 text-left">
-                                    {{ $release->released_at ?? '-' }}
+                                    {{ $release->released_at ? substr($release->released_at,0, 10) : '-' }}
                                 </td>
                                 <td
                                     class="px-4 py-3 text-center"

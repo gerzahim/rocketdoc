@@ -1,16 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            @lang('crud.tickets.index_title')
+            @lang('crud.issues.index_title')
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <x-partials.card>
-                <x-slot name="title">
-                    @lang('crud.tickets.index_title')
-                </x-slot>
+                <x-slot name="title"> @lang('crud.issues.index_title') </x-slot>
 
                 <div class="mb-5 mt-4">
                     <div class="flex flex-wrap justify-between">
@@ -36,9 +34,9 @@
                             </form>
                         </div>
                         <div class="md:w-1/2 text-right">
-                            @can('create', App\Models\Ticket::class)
+                            @can('create', App\Models\Issue::class)
                             <a
-                                href="{{ route('tickets.create') }}"
+                                href="{{ route('issues.create') }}"
                                 class="button button-primary"
                             >
                                 <i class="mr-1 icon ion-md-add"></i>
@@ -50,36 +48,36 @@
                 </div>
 
                 <div class="block w-full overflow-auto scrolling-touch">
-                    <table class="w-full max-w-full mb-4 bg-transparent table-fixed">
+                    <table class="w-full max-w-full mb-4 bg-transparent">
                         <thead class="text-gray-700">
                             <tr>
                                 <th class="px-4 py-3 text-left">
-                                    @lang('crud.tickets.inputs.key')
+                                    @lang('crud.issues.inputs.key')
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    @lang('crud.tickets.inputs.summary')
+                                    @lang('crud.issues.inputs.summary')
                                 </th>
                                 <th class="px-4 py-3 text-left">
-                                    @lang('crud.tickets.inputs.url')
+                                    @lang('crud.issues.inputs.url')
                                 </th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody class="text-gray-600">
-                            @forelse($tickets as $ticket)
+                            @forelse($issues as $issue)
                             <tr class="hover:bg-gray-50">
                                 <td class="px-4 py-3 text-left">
-                                    {{ $ticket->key ?? '-' }}
+                                    {{ $issue->key ?? '-' }}
                                 </td>
                                 <td class="px-4 py-3 text-left">
-                                    {{ $ticket->summary ?? '-' }}
+                                    {{ $issue->summary ?? '-' }}
                                 </td>
                                 <td class="px-4 py-3 text-left">
                                     <a
                                         class="underline cursor-pointer"
                                         target="_blank"
-                                        href="{{ $ticket->url }}"
-                                        >{{ $ticket->url ?? '-' }}</a
+                                        href="{{ $issue->url }}"
+                                        >{{ $issue->url ?? '-' }}</a
                                     >
                                 </td>
                                 <td
@@ -95,9 +93,9 @@
                                             align-middle
                                         "
                                     >
-                                        @can('update', $ticket)
+                                        @can('update', $issue)
                                         <a
-                                            href="{{ route('tickets.edit', $ticket) }}"
+                                            href="{{ route('issues.edit', $issue) }}"
                                             class="mr-1"
                                         >
                                             <button
@@ -109,9 +107,9 @@
                                                 ></i>
                                             </button>
                                         </a>
-                                        @endcan @can('view', $ticket)
+                                        @endcan @can('view', $issue)
                                         <a
-                                            href="{{ route('tickets.show', $ticket) }}"
+                                            href="{{ route('issues.show', $issue) }}"
                                             class="mr-1"
                                         >
                                             <button
@@ -121,9 +119,9 @@
                                                 <i class="icon ion-md-eye"></i>
                                             </button>
                                         </a>
-                                        @endcan @can('delete', $ticket)
+                                        @endcan @can('delete', $issue)
                                         <form
-                                            action="{{ route('tickets.destroy', $ticket) }}"
+                                            action="{{ route('issues.destroy', $issue) }}"
                                             method="POST"
                                             onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')"
                                         >
@@ -157,7 +155,7 @@
                             <tr>
                                 <td colspan="4">
                                     <div class="mt-10 px-4">
-                                        {!! $tickets->render() !!}
+                                        {!! $issues->render() !!}
                                     </div>
                                 </td>
                             </tr>

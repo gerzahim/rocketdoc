@@ -11,7 +11,13 @@ class Release extends Model
     use HasFactory;
     use Searchable;
 
-    protected $fillable = ['name', 'document', 'released_at', 'project_id'];
+    protected $fillable = [
+        'name',
+        'document',
+        'released_at',
+        'project_id',
+        'status',
+    ];
 
     protected $searchableFields = ['*'];
 
@@ -24,8 +30,8 @@ class Release extends Model
         return $this->belongsTo(Project::class);
     }
 
-    public function tickets()
+    public function issues()
     {
-        return $this->belongsToMany(Ticket::class);
+        return $this->belongsToMany(Issue::class);
     }
 }

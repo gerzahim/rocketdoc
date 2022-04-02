@@ -116,6 +116,7 @@ class ReleaseControllerTest extends TestCase
             'name' => $this->faker->name,
             'document' => $this->faker->text,
             'released_at' => $this->faker->dateTime,
+            'status' => $this->faker->word,
             'project_id' => $project->id,
         ];
 

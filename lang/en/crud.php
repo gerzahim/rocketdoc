@@ -48,6 +48,9 @@ return [
         ],
     ],
 
+    // crud.releases.inputs.status
+// crud.release_issues.new_title
+
     'releases' => [
         'name' => 'Releases',
         'index_title' => 'Releases List',
@@ -59,36 +62,35 @@ return [
             'name' => 'Name',
             'project_id' => 'Project',
             'document' => 'Document',
+            'status' => 'Status',
             'released_at' => 'Released At',
         ],
     ],
 
-    'tickets' => [
-        'name' => 'Tickets',
-        'index_title' => 'Tickets List',
-        'new_title' => 'New Ticket',
-        'create_title' => 'Create Ticket',
-        'edit_title' => 'Edit Ticket',
-        'show_title' => 'Show Ticket',
+    'issues' => [
+        'name' => 'Issues',
+        'index_title' => 'Issues List',
+        'new_title' => 'New Issue',
+        'create_title' => 'Create Issue',
+        'edit_title' => 'Edit Issue',
+        'show_title' => 'Show Issue',
         'inputs' => [
             'key'     => 'Key',
             'summary' => 'Summary',
             'url'     => 'Url',
         ],
     ],
-
-    'ticket_releases' => [
-        'name' => 'Ticket Releases',
+    'issue_releases' => [
+        'name' => 'Release Issues',
         'index_title' => ' List',
-        'new_title' => 'New Release ticket',
-        'create_title' => 'Create release_ticket',
-        'edit_title' => 'Edit release_ticket',
-        'show_title' => 'Show release_ticket',
+        'new_title' => 'New Release Issue',
+        'create_title' => 'Create release_issue',
+        'edit_title' => 'Edit release_issue',
+        'show_title' => 'Show release_issue',
         'inputs' => [
             'release_id' => 'Release',
         ],
     ],
-
     'templates' => [
         'name' => 'Templates',
         'index_title' => 'Templates List',

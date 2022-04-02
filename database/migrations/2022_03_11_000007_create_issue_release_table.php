@@ -12,9 +12,9 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('release_ticket', function (Blueprint $table) {
+        Schema::create('issue_release', function (Blueprint $table) {
             $table->unsignedBigInteger('release_id');
-            $table->unsignedBigInteger('ticket_id');
+            $table->unsignedBigInteger('issue_id');
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('release_ticket');
+        Schema::dropIfExists('issue_release');
     }
 };

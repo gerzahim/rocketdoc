@@ -60,6 +60,9 @@
                                     @lang('crud.releases.inputs.project_id')
                                 </th>
                                 <th class="px-4 py-3 text-left">
+                                    @lang('crud.releases.inputs.status')
+                                </th>
+                                <th class="px-4 py-3 text-left">
                                     @lang('crud.releases.inputs.released_at')
                                 </th>
                                 <th></th>
@@ -76,7 +79,10 @@
                                     }}
                                 </td>
                                 <td class="px-4 py-3 text-left">
-                                    {{ $release->released_at ? substr($release->released_at,0, 10) : '-' }}
+                                    {{ $release->status ?? '-' }}
+                                </td>
+                                <td class="px-4 py-3 text-left">
+                                    {{ $release->released_at ?? '-' }}
                                 </td>
                                 <td
                                     class="px-4 py-3 text-center"
@@ -143,7 +149,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="4">
+                                <td colspan="5">
                                     @lang('crud.common.no_items_found')
                                 </td>
                             </tr>
@@ -151,7 +157,7 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="4">
+                                <td colspan="5">
                                     <div class="mt-10 px-4">
                                         {!! $releases->render() !!}
                                     </div>

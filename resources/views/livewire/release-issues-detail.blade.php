@@ -1,7 +1,7 @@
 <div>
     <div>
-        @can('create', App\Models\Release::class)
-        <button class="button" wire:click="newRelease">
+        @can('create', App\Models\Issue::class)
+        <button class="button" wire:click="newIssue">
             <i class="mr-1 icon ion-md-add text-primary"></i>
             @lang('crud.common.attach')
         </button>
@@ -16,13 +16,14 @@
                 <div>
                     <x-inputs.group class="w-full">
                         <x-inputs.select
-                            name="release_id"
-                            label="Release"
-                            wire:model="release_id"
+                            name="issue_id"
+                            label="Issue"
+                            wire:model="issue_id"
                         >
-                            <option value="null" disabled>Please select the Release</option>
-                            @foreach($releasesForSelect as $value => $label)
-                            <option value="{{ $value }}"  >{{ $label }}</option>
+
+                            <option value="null" disabled>Please select the Issue</option>
+                            @foreach($issuesForSelect as $issue)
+                                <option value="{{ $issue['id'] }}"  >{{ $issue['name'] }}</option>
                             @endforeach
                         </x-inputs.select>
                     </x-inputs.group>
@@ -53,19 +54,25 @@
 
     <div class="block w-full overflow-auto scrolling-touch mt-4">
         <table class="w-full max-w-full mb-4 bg-transparent">
-            <thead class="text-gray-700">
-                <tr>
-                    <th class="px-4 py-3 text-left">
-                        @lang('crud.ticket_releases.inputs.release_id')
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
+{{--            <thead class="text-gray-700">--}}
+{{--                <tr>--}}
+{{--                    <th class="px-4 py-3 text-left">--}}
+{{--                        @lang('crud.issue_releases.inputs.issue_id')--}}
+{{--                    </th>--}}
+{{--                    <th></th>--}}
+{{--                </tr>--}}
+{{--            </thead>--}}
             <tbody class="text-gray-600">
-                @foreach ($ticketReleases as $release)
+                @foreach ($releaseIssues as $issue)
                 <tr class="hover:bg-gray-100">
                     <td class="px-4 py-3 text-left">
-                        {{ $release->name ?? '-' }}
+                        @php
+                            $issue_name = '-';
+                            if (isset($issue->key) && isset($issue->summary) ){
+                                $issue_name = "{$issue->key} {$issue->summary}";
+                            }
+                        @endphp
+                        {{ $issue_name }}
                     </td>
                     <td class="px-4 py-3 text-right" style="width: 70px;">
                         <div
@@ -73,11 +80,11 @@
                             aria-label="Row Actions"
                             class="relative inline-flex align-middle"
                         >
-                            @can('delete-any', App\Models\Release::class)
+                            @can('delete-any', App\Models\Issue::class)
                             <button
                                 class="button button-danger"
                                 onclick="confirm('Are you sure?') || event.stopImmediatePropagation()"
-                                wire:click="detach({{ $release->id }})"
+                                wire:click="detach({{ $issue->id }})"
                             >
                                 <i
                                     class="mr-1 icon ion-md-trash text-primary"
@@ -94,7 +101,7 @@
                 <tr>
                     <td colspan="2">
                         <div class="mt-10 px-4">
-                            {{ $ticketReleases->render() }}
+                            {{ $releaseIssues->render() }}
                         </div>
                     </td>
                 </tr>

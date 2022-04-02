@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\IssueController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ReleaseController;
@@ -38,6 +39,6 @@ Route::prefix('/')
         Route::resource('users', UserController::class);
         Route::resource('projects', ProjectController::class);
         Route::resource('releases', ReleaseController::class);
-        Route::resource('tickets', TicketController::class);
         Route::resource('templates', TemplateController::class);
+        Route::resource('issues', IssueController::class);
     });

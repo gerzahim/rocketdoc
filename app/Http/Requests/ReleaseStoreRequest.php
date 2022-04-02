@@ -27,6 +27,7 @@ class ReleaseStoreRequest extends FormRequest
             'name' => ['required', 'max:255', 'string'],
             'project_id' => ['required', 'exists:projects,id'],
             'document' => ['nullable', 'string'],
+            'status' => ['required', 'max:255', 'string'],
             'released_at' => ['required', 'date'],
             'tickets' => ['array'],
         ];

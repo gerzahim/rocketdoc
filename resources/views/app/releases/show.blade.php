@@ -31,22 +31,27 @@
                             }}</span
                         >
                     </div>
-                    <div class="mb-4 prose">
+                    <div class="mb-4">
                         <h5 class="font-medium text-gray-700">
-                            @lang('crud.releases.inputs.document')
-                            <button id="button1" onclick="copyToClipboard('document12');return false;">Click to copy</button>
+                            @lang('crud.releases.inputs.status')
                         </h5>
-{{--                        <span>{!! $release->document ?? '-' !!}</span>--}}
-                        <article id="document12">
-                            {!! html_entity_decode($release->document) ?? '-' !!}
-                        </article>
+                        <span>{{ $release->status ?? '-' }}</span>
                     </div>
-                    <br>
                     <div class="mb-4">
                         <h5 class="font-medium text-gray-700">
                             @lang('crud.releases.inputs.released_at')
                         </h5>
                         <span>{{ $release->released_at ?? '-' }}</span>
+                    </div>
+                    <div class="mb-4 prose">
+                        <h5 class="font-medium text-gray-700">
+                            @lang('crud.releases.inputs.document')
+                            <button id="button1" onclick="copyToClipboard('document12');return false;">Click to copy</button>
+                        </h5>
+                        {{--                        <span>{!! $release->document ?? '-' !!}</span>--}}
+                        <article id="document12">
+                            {!! html_entity_decode($release->document) ?? '-' !!}
+                        </article>
                     </div>
                 </div>
 

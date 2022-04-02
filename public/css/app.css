@@ -959,6 +959,9 @@ Ensure the default browser behavior of the `hidden` attribute.
 .shrink-0 {
   flex-shrink: 0;
 }
+.table-fixed {
+  table-layout: fixed;
+}
 .origin-top-left {
   transform-origin: top left;
 }

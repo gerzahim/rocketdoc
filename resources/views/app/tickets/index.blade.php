@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="block w-full overflow-auto scrolling-touch">
-                    <table class="w-full max-w-full mb-4 bg-transparent">
+                    <table class="w-full max-w-full mb-4 bg-transparent table-fixed">
                         <thead class="text-gray-700">
                             <tr>
                                 <th class="px-4 py-3 text-left">

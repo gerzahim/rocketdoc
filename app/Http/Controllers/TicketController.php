@@ -51,23 +51,48 @@ class TicketController extends Controller
     {
         $this->authorize('create', Ticket::class);
 
-        $validated = $request->validated();
+        $request->validated();
 
         $key = $request->get('key');
+        $summary = $request->get('summary');
+        $url = $request->get('url');
 
-        $client = new Client([
-            'timeout'  => 5.0,
-        ]);
+        $ticketInfo = [
+            'key'     => $key,
+            'summary' => $summary,
+            'url'     => $url,
+        ];
 
+        // If not provide Values fetch from Jira API
+        if( empty($summary) || empty($url)) {
+            $ticketInfo = $this->getIssueInfoFromJIRA($key);
+        }
+
+        $ticket = Ticket::create($ticketInfo);
+
+        return redirect()
+            ->route('tickets.edit', $ticket)
+            ->withSuccess(__('crud.common.created'));
+
+
+    }
+
+
+
+    public function getIssueInfoFromJIRA($key){
         try
         {
+            $client = new Client([
+                'timeout'  => 5.0,
+            ]);
+
             $response = $client->request(
                 'GET',
                 'https://paperstreet.atlassian.net/rest/api/3/issue/' . $key,
                 [
                     'auth' => [
                         'gerza@paperstreetmedia.com',
-                        'p7rU4EUiuwxExu392qew6FA6'
+                        'vqcHqcCyQDOkx0jns0PwB3A1'
                     ]
                     //'json' => $payload_data,
                 ]);
@@ -77,27 +102,19 @@ class TicketController extends Controller
             {
                 $manage = json_decode($response->getBody(), true);
 
-                $ticket_info = [
+                return [
+                    'key'     => $key,
                     'summary' => $manage['fields']['summary'],
                     'url'     => 'https://paperstreet.atlassian.net/browse/' . $manage['key'],
                 ];
-
-                $result = $validated + $ticket_info;
-                $ticket = Ticket::create($result);
-
-                return redirect()
-                    ->route('tickets.edit', $ticket)
-                    ->withSuccess(__('crud.common.created'));
             }
 
         } catch (\GuzzleHttp\Exception\RequestException $e) {
-
             Session::flash('error', 'Not key-Issue Found in Atlassian API');
 
-            return redirect()->route('tickets.index');
+            dd('HEY');
 
         }
-
     }
 
     /**

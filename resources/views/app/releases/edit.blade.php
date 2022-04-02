@@ -50,6 +50,14 @@
                     </div>
                 </x-form>
             </x-partials.card>
+
+            @can('view-any', App\Models\Issue::class)
+            <x-partials.card class="mt-5">
+                <x-slot name="title"> Issues </x-slot>
+
+                <livewire:release-issues-detail :release="$release" />
+            </x-partials.card>
+            @endcan
         </div>
     </div>
 </x-app-layout>

@@ -58,10 +58,10 @@
             </script>
         @endif
 
-        @if (session()->has('error'))
+        @if(Session::has('error'))
             <script>
                 const notyf = new Notyf({dismissible: true})
-                notyf.error('{{ session('error') }}')
+                notyf.error('{!!Session::get('error')!!}')
             </script>
         @endif
 

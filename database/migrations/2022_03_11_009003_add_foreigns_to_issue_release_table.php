@@ -12,7 +12,7 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::table('release_ticket', function (Blueprint $table) {
+        Schema::table('issue_release', function (Blueprint $table) {
             $table
                 ->foreign('release_id')
                 ->references('id')
@@ -21,9 +21,9 @@ return new class extends Migration {
                 ->onDelete('CASCADE');
 
             $table
-                ->foreign('ticket_id')
+                ->foreign('issue_id')
                 ->references('id')
-                ->on('tickets')
+                ->on('issues')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
         });
@@ -36,9 +36,9 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::table('release_ticket', function (Blueprint $table) {
+        Schema::table('issue_release', function (Blueprint $table) {
             $table->dropForeign(['release_id']);
-            $table->dropForeign(['ticket_id']);
+            $table->dropForeign(['issue_id']);
         });
     }
 };

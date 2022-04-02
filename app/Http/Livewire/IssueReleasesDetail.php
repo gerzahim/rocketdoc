@@ -2,16 +2,16 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Ticket;
+use App\Models\Issue;
 use Livewire\Component;
 use App\Models\Release;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class TicketReleasesDetail extends Component
+class IssueReleasesDetail extends Component
 {
     use AuthorizesRequests;
 
-    public Ticket $ticket;
+    public Issue $issue;
     public Release $release;
     public $releasesForSelect = [];
     public $release_id = null;
@@ -23,9 +23,9 @@ class TicketReleasesDetail extends Component
         'release_id' => ['required', 'exists:releases,id'],
     ];
 
-    public function mount(Ticket $ticket)
+    public function mount(Issue $issue)
     {
-        $this->ticket = $ticket;
+        $this->issue = $issue;
         $this->releasesForSelect = Release::pluck('name', 'id');
         $this->resetReleaseData();
     }
@@ -41,7 +41,7 @@ class TicketReleasesDetail extends Component
 
     public function newRelease()
     {
-        $this->modalTitle = trans('crud.ticket_releases.new_title');
+        $this->modalTitle = trans('crud.issue_releases.new_title');
         $this->resetReleaseData();
 
         $this->showModal();
@@ -64,7 +64,7 @@ class TicketReleasesDetail extends Component
 
         $this->authorize('create', Release::class);
 
-        $this->ticket->releases()->attach($this->release_id, []);
+        $this->issue->releases()->attach($this->release_id, []);
 
         $this->hideModal();
     }
@@ -73,15 +73,15 @@ class TicketReleasesDetail extends Component
     {
         $this->authorize('delete-any', Release::class);
 
-        $this->ticket->releases()->detach($release);
+        $this->issue->releases()->detach($release);
 
         $this->resetReleaseData();
     }
 
     public function render()
     {
-        return view('livewire.ticket-releases-detail', [
-            'ticketReleases' => $this->ticket
+        return view('livewire.issue-releases-detail', [
+            'issueReleases' => $this->issue
                 ->releases()
                 ->withPivot([])
                 ->paginate(20),

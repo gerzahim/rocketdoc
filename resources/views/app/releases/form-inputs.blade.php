@@ -22,7 +22,13 @@
         </x-inputs.select>
     </x-inputs.group>
 
-
+    <x-inputs.group class="w-full lg:w-6/12">
+        <x-inputs.select name="status" label="Status">
+            @php $selected = old('status', ($editing ? $release->status : '')) @endphp
+            <option value="draft" {{ $selected == 'draft' ? 'selected' : '' }} >Draft</option>
+            <option value="completed" {{ $selected == 'completed' ? 'selected' : '' }} >Completed</option>
+        </x-inputs.select>
+    </x-inputs.group>
 
     <x-inputs.group class="w-full lg:w-6/12">
         <x-inputs.date
@@ -33,28 +39,6 @@
             required
         ></x-inputs.date>
     </x-inputs.group>
-
-    <div class="px-4 my-4 w-full">
-        <h4 class="font-bold text-lg text-gray-700">
-            Assign @lang('crud.tickets.name')
-        </h4>
-
-        <div class="py-2">
-            @foreach ($tickets as $ticket)
-            <div>
-                <x-inputs.checkbox
-                    id="ticket{{ $ticket->id }}"
-                    name="tickets[]"
-                    label="{{ ucfirst($ticket->name) }}"
-                    value="{{ $ticket->id }}"
-                    :checked="isset($release) ? $release->tickets()->where('id', $ticket->id)->exists() : false"
-                    :add-hidden-value="false"
-                ></x-inputs.checkbox>
-            </div>
-            @endforeach
-        </div>
-    </div>
-
 
     @if($editing)
         <x-inputs.group class="w-full">

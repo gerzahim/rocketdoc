@@ -6,14 +6,11 @@ use App\Models\Scopes\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Ticket extends Model
+class Issue extends Model
 {
     use HasFactory;
     use Searchable;
 
-    //@TODO
-    // name => summary
-    // "key": "TSV4-5108",
     protected $fillable = ['key', 'summary', 'url'];
 
     protected $searchableFields = ['*'];

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Issue;
 use App\Models\Ticket;
 use App\Models\Release;
 use App\Models\Project;
@@ -58,7 +59,7 @@ class ReleaseController extends Controller
 
         $release = Release::create($validated);
 
-        $release->tickets()->attach($request->tickets);
+        //$release->tickets()->attach($request->tickets);
 
         return redirect()
             ->route('releases.edit', $release)
@@ -87,8 +88,7 @@ class ReleaseController extends Controller
         $this->authorize('update', $release);
 
         $projects = Project::pluck('name', 'id');
-
-        $tickets = Ticket::get();
+        $issues = Issue::get();
 
         if($release->document == null){
             $release->document = $this->createDocumentFromTemplate($release);
@@ -96,7 +96,7 @@ class ReleaseController extends Controller
 
         return view(
             'app.releases.edit',
-            compact('release', 'projects', 'tickets')
+            compact('release', 'projects', 'issues')
         );
     }
 
@@ -112,7 +112,7 @@ class ReleaseController extends Controller
 
         $validated = $request->validated();
 
-        $release->tickets()->sync($request->tickets);
+        //$release->issues()->sync($request->issues);
         $release->update($validated);
 
         return redirect()
@@ -136,56 +136,67 @@ class ReleaseController extends Controller
             ->withSuccess(__('crud.common.removed'));
     }
 
-    /*
+    /**
      * Get Template
      */
-    public function createDocumentFromTemplate($release)
+    public function createDocumentFromTemplate($release): array|string
     {
         // Get template
         $template = Template::first();
 
-        // Array containing search term to replace on the Doc
-        $searchVal = ["replaceTerm1", "replaceTerm2", "<p>replaceTerm3</p>", "replaceTerm4", "replaceTerm5"];
 
         // Get Date release in human Readable Format  => Dec 25, 1975
         $dt = new Carbon($release->released_at);
         $release_released_at = $dt->toFormattedDateString();
 
-        // Array containing values to replace
-        $replaceVal = [$release->name, $release_released_at, $this->getTicketsAssociated($release), $release->name, $this->getTags($release)];
+        // Array contains search terms to replace on the Doc Text
+        $searchVal = ["replaceTerm1", "replaceTerm2", "<p>replaceTerm3</p>", "replaceTerm4", "replaceTerm5"];
+
+        // Array contains the new values to be substituted
+        $replaceVal = [$release->name, $release_released_at, $this->getIssuesAssociated($release), $release->name, $this->getIssuesMarkdownFormat($release)];
 
         // return Doc template with custom values replaced.
         return str_replace($searchVal, $replaceVal, $template->document);
 
     }
 
-    public function getTicketsAssociated($release){
+    /**
+     * return list of issues as (bulleted) list.
+     * @param $release
+     * @return string
+     */
+    public function getIssuesAssociated($release): string
+    {
 
-        $listTickets = "<ul>";
-        foreach($release->tickets as $ticket){
-            $listTickets.="<li> {$ticket->key} {$ticket->summary}</li>";
+        $listIssues = "<ul>";
+        foreach($release->issues as $issue){
+            $listIssues.="<li> {$issue->key} {$issue->summary}</li>";
         }
-        $listTickets.="</ul>";
+        $listIssues.="</ul>";
 
-        return $listTickets;
+        return $listIssues;
 
     }
 
-
-    public function getTags($release)
+    /**
+     * return list of issues on in <code> format for Markdown
+     * @param $release
+     * @return string
+     */
+    public function getIssuesMarkdownFormat($release): string
     {
-        $listTags = '<pre data-language="Plain text" spellcheck="false"><code class="language-plaintext">';
+        $listIssues = '<pre data-language="Plain text" spellcheck="false"><code class="language-plaintext">';
         $firsTime = true;
-        foreach($release->tickets as $ticket){
+        foreach($release->issues as $issue){
             if($firsTime){
-                $listTags.= "{$ticket->key} {$ticket->summary}";
+                $listIssues.= "{$issue->key} {$issue->summary}";
             }else{
-                $listTags.= "<br>{$ticket->key} {$ticket->summary}";
+                $listIssues.= "<br>{$issue->key} {$issue->summary}";
             }
             $firsTime = false;
         }
-        $listTags.="</code></pre>";
+        $listIssues.="</code></pre>";
 
-        return $listTags;
+        return $listIssues;
     }
 }

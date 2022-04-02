@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->text('document')->nullable();
             $table->timestamp('released_at');
             $table->unsignedBigInteger('project_id');
+            $table->string('status');
 
             $table->timestamps();
         });

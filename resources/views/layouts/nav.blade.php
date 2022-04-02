@@ -35,9 +35,9 @@
                             Releases
                             </x-dropdown-link>
                             @endcan
-                            @can('view-any', App\Models\Ticket::class)
-                            <x-dropdown-link href="{{ route('tickets.index') }}">
-                            Tickets
+                            @can('view-any', App\Models\Issue::class)
+                            <x-dropdown-link href="{{ route('issues.index') }}">
+                            Issues
                             </x-dropdown-link>
                             @endcan
                             @can('view-any', App\Models\Template::class)
@@ -132,9 +132,9 @@
                 Releases
                 </x-responsive-nav-link>
                 @endcan
-                @can('view-any', App\Models\Ticket::class)
-                <x-responsive-nav-link href="{{ route('tickets.index') }}">
-                Tickets
+                @can('view-any', App\Models\Issue::class)
+                <x-responsive-nav-link href="{{ route('issues.index') }}">
+                Issues
                 </x-responsive-nav-link>
                 @endcan
                 @can('view-any', App\Models\Template::class)

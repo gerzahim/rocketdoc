@@ -170,7 +170,7 @@ class ReleaseController extends Controller
 
         $listIssues = "<ul>";
         foreach($release->issues as $issue){
-            $listIssues.="<li> {$issue->key} {$issue->summary}</li>";
+            $listIssues.="<li> <a href='{$issue->url}'>{$issue->key}</a> {$issue->summary}</li>";
         }
         $listIssues.="</ul>";
 

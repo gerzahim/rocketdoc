@@ -1,0 +1,76 @@
+version: '3'
+services:
+    #Nginx Service
+    webserver:
+        image: nginx:alpine
+        container_name: rocket_nginx_container
+        restart: unless-stopped
+        tty: true
+        ports:
+        - "80:80"
+        volumes:
+          - .:/var/www/
+          - .docker/nginx/conf.d/:/etc/nginx/conf.d/
+        depends_on:
+          - app
+
+    #PHP Service
+    app:
+        build: .docker/php
+        container_name: rocket_app_container
+        volumes:
+          - .:/var/www/
+          - .docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+        restart: unless-stopped
+        tty: true
+        environment:
+          - maildev_host=rocket_maildev_container
+        working_dir: /var/www
+        depends_on:
+          - maildev
+          - mysql
+          - redis
+
+    #MySQL Service
+    mysql:
+        image: mysql:5.7.22
+        container_name: rocket_mysql_container
+        volumes:
+            - .docker/mysql:/var/lib/mysql
+            - ".docker/initdb/setup_schema.sql:/docker-entrypoint-initdb.d/setup_schema.sql"
+        restart: unless-stopped
+        tty: true
+        command:
+            - "--default-authentication-plugin=mysql_native_password"
+            - "--lower_case_table_names=1"        
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: rocketdoc
+            MYSQL_USER: sf4
+            MYSQL_PASSWORD: sf4
+            
+    #PHP-MyAdmin MYSQL
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: rocket_phpmyadmin_container
+        environment:
+          PMA_HOST: mysql
+          PMA_PORT: 3306
+        ports:
+            - 8080:80
+        links:
+            - mysql
+
+    #Redis Service
+    redis:
+      image: redis:4.0
+      container_name: rocket_redis_container
+      ports:
+        - "6379:6379"
+
+    #Mail_Host
+    maildev:
+        image: djfarrelly/maildev
+        container_name: rocket_maildev_container
+        ports:
+          - 8082:80

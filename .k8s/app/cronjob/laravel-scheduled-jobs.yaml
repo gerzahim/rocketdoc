@@ -1,0 +1,37 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: transcode-v2-scheduled-cron
+spec:
+  schedule: "* * * * *"
+  concurrencyPolicy: Replace
+  successfulJobsHistoryLimit: 10
+  failedJobsHistoryLimit: 10
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          imagePullSecrets:
+            - name: docker-regcred
+            - name: gitlab-maglev-reg
+          volumes:
+            - name: applogs
+              emptyDir: {}
+          containers:
+            - name: transcode-v2-scheduled-cron
+              imagePullPolicy: Always
+              image: registry.gitlab.com/paperstreet/dogma/transcode-v2:cron
+              volumeMounts:
+                - name: applogs
+                  mountPath: /var/log/transcode-v2
+              args:
+                - /bin/sh
+                - -c
+                - cd /var/www && php artisan schedule:run >> /var/log/transcode-v2/scheduled.log 2>&1
+            - name: transcode-v2-scheduled-logs
+              image: busybox
+              args: [/bin/sh, -c, 'echo "" > /var/log/transcode-v2/scheduled.log && chmod 0666 /var/log/transcode-v2/scheduled.log && tail -n+1 -f /var/log/transcode-v2/scheduled.log']
+              volumeMounts:
+                - name: applogs
+                  mountPath: /var/log/transcode-v2
+          restartPolicy: OnFailure

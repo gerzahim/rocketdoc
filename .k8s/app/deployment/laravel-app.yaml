@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transcode-v2
+  labels:
+    tier: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: transcode-v2
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: transcode-v2
+        tier: backend
+    spec:
+      imagePullSecrets:
+        - name: docker-regcred
+        - name: gitlab-maglev-reg
+      volumes:
+        - name: applogs
+          emptyDir: {}
+        - name: view-cache
+          emptyDir: {}
+      containers:
+        - name: transcode-v2-code
+          imagePullPolicy: Always
+          image: registry.gitlab.com/paperstreet/dogma/transcode-v2:fcgi
+          ports:
+            - containerPort: 9000
+              name: tc2-fcgi
+          readinessProbe:
+            tcpSocket:
+              port: tc2-fcgi
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: tc2-fcgi
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          volumeMounts:
+            - name: applogs
+              mountPath: /var/log/transcode-v2
+            - name: view-cache
+              mountPath: /var/www/storage/framework/views
+        - name: laravel-logs
+          image: busybox
+          args: [/bin/sh, -c, 'echo "" > /var/log/transcode-v2/laravel.log && chmod 0666 /var/log/transcode-v2/laravel.log && tail -n+1 -f /var/log/transcode-v2/laravel.log']
+          volumeMounts:
+            - name: applogs
+              mountPath: /var/log/transcode-v2
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: transcode-v2-app-service
+spec:
+  selector:
+    app: transcode-v2
+  ports:
+    - protocol: TCP
+      port: 9000
+      targetPort: 9000
+      name: tc2-fcgi

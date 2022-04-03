@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: transcode-v2-php-queues
+  labels:
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: transcode-v2-php-queues
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: transcode-v2-php-queues
+        tier: backend
+    spec:
+      imagePullSecrets:
+        - name: docker-regcred
+        - name: gitlab-maglev-reg
+      volumes:
+        - name: applogs
+          emptyDir: {}
+      containers:
+        - name: transcode-v2-queue
+          imagePullPolicy: Always
+          image: registry.gitlab.com/paperstreet/dogma/transcode-v2:queues
+          lifecycle:
+            preStop:
+              exec:
+                command: [/bin/bash, -c, "cd /var/www; php artisan horizon:terminate"]
+          volumeMounts:
+            - name: applogs
+              mountPath: /var/log/transcode-v2
+        - name: transcode-v2-default-logs
+          image: busybox
+          args: [/bin/sh, -c, 'echo "" > /var/log/transcode-v2/laravel.log && chmod 0666 /var/log/transcode-v2/laravel.log && tail -n+1 -f /var/log/transcode-v2/laravel.log']
+          volumeMounts:
+            - name: applogs
+              mountPath: /var/log/transcode-v2
+        - name: transcode-v2-horizon-logs
+          image: busybox
+          args: [/bin/sh, -c, 'echo "" > /var/log/transcode-v2/horizon.log && chmod 0666 /var/log/transcode-v2/horizon.log && tail -n+1 -f /var/log/transcode-v2/horizon.log']
+          volumeMounts:
+            - name: applogs
+              mountPath: /var/log/transcode-v2
+        - name: transcode-v2-queue-logs
+          image: busybox
+          args: [/bin/sh, -c, 'echo "" > /var/log/transcode-v2/queue.log && chmod 0666 /var/log/transcode-v2/queue.log && tail -n+1 -f /var/log/transcode-v2/queue.log']
+          volumeMounts:
+            - name: applogs
+              mountPath: /var/log/transcode-v2
+        - name: transcode-v2-scheduled-logs
+          image: busybox
+          args: [/bin/sh, -c, 'echo "" > /var/log/transcode-v2/scheduled.log && chmod 0666 /var/log/transcode-v2/scheduled.log && tail -n+1 -f /var/log/transcode-v2/scheduled.log']
+          volumeMounts:
+            - name: applogs
+              mountPath: /var/log/transcode-v2

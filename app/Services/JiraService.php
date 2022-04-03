@@ -28,10 +28,15 @@ class JiraService {
 
     public function getIssueInfo($key)
     {
+
+
         $url = '/issue/'.$key;
+        $uri = $this->apiBaseUrl.$url;
+        //uri= https://paperstreet.atlassian.net/rest/api/3/issue/TSV4-3333
+
         try {
             $response = $this->client->get(
-                $this->apiBaseUrl.$url,
+                $uri,
                 [
                     'auth' => [
                         $this->account,
@@ -39,10 +44,11 @@ class JiraService {
                     ]
                 ]);
 
+
+
             if ( $response->getStatusCode() === 200 )
             {
                 $issue = json_decode($response->getBody(), true);
-
                 return [
                     'key'     => $key,
                     'summary' => $issue['fields']['summary'],
@@ -56,20 +62,4 @@ class JiraService {
             return [];
         }
     }
-
-
-    public function getTotalCasesByCountryAndType($country, $type)
-    {
-        $today = Carbon::now()->toDateString();
-
-        $httpClient = new \GuzzleHttp\Client();
-        $request =
-            $httpClient
-                ->get("https://api.covid19api.com/total/country/${country}/status/${type}?from=${today}&to=${today}");
-
-        $response = json_decode($request->getBody()->getContents());
-
-        return $response[count($response) - 1];
-    }
-
 }

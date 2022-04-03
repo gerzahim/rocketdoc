@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: transcode-v2-migration-create-job
+spec:
+  ttlSecondsAfterFinished: 3600
+  backoffLimit: 3
+  template:
+    spec:
+      restartPolicy: Never
+      volumes:
+        - name: applogs
+          emptyDir: {}
+      containers:
+        - name: transcode-v2-laravel-migration-create
+          image: registry.gitlab.com/paperstreet/dogma/transcode-v2:base
+          volumeMounts:
+            - name: applogs
+              mountPath: /var/log/transcode-v2
+          imagePullPolicy: Always
+          args:
+            - /bin/sh
+            - -c
+            - "cd /var/www && php artisan -v migrate:install >> /var/log/transcode-v2/migrate.log 2>&1"
+        - name: transcode-v2-migration-create-logs
+          image: busybox
+          args: [/bin/sh, -c, 'echo "" > /var/log/transcode-v2/migrate.log && chmod 0666 /var/log/transcode-v2/migrate.log && tail -n+1 -f /var/log/transcode-v2/migrate.log']
+          volumeMounts:
+            - name: applogs
+              mountPath: /var/log/transcode-v2

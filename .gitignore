@@ -26,3 +26,7 @@ Homestead.json
 .DS_Store
 
 .idea/*
+
+
+###> docker ###
+.docker/mysql/*

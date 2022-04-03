@@ -1,0 +1,83 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header l5d-dst-override $service_name.$namespace.svc.cluster.local:$service_port;
+      grpc_set_header l5d-dst-override $service_name.$namespace.svc.cluster.local:$service_port;
+      server_tokens off;
+  name: transcode-v2-app-ingress-static
+spec:
+  tls:
+    - hosts:
+        - transcode-v2.psmcode.com
+      secretName: psmcode-com-wildcard
+  rules:
+    - host: transcode-v2.psmcode.com
+      http:
+        paths:
+          - path: /vendor
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: tc2-static-srv
+                port:
+                  name: tc2-static
+          - path: /frontend
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: tc2-static-srv
+                port:
+                  name: tc2-static
+          - path: /css
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: tc2-static-srv
+                port:
+                  name: tc2-static
+          - path: /js
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: tc2-static-srv
+                port:
+                  name: tc2-static
+          - path: /docs
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: tc2-static-srv
+                port:
+                  name: tc2-static
+          - path: /favicon.ico
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: tc2-static-srv
+                port:
+                  name: tc2-static
+          - path: /loaderio-fe5d59d4af52aabcda4aa88ff03de722.txt
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: tc2-static-srv
+                port:
+                  name: tc2-static
+          - path: /mix-manifest.json
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: tc2-static-srv
+                port:
+                  name: tc2-static
+          - path: /robots.txt
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: tc2-static-srv
+                port:
+                  name: tc2-static

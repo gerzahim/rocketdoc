@@ -36,8 +36,8 @@ services:
         image: mysql:5.7.22
         container_name: rocket_mysql_container
         volumes:
-            - ./docker/mysql:/var/lib/mysql
-            - "./docker/initdb/setup_schema.sql:/docker-entrypoint-initdb.d/setup_schema.sql"
+            - .docker/mysql:/var/lib/mysql
+            - ".docker/initdb/setup_schema.sql:/docker-entrypoint-initdb.d/setup_schema.sql"
         restart: unless-stopped
         tty: true
         command:

@@ -29,6 +29,9 @@ class ReleaseController extends Controller
             ->paginate(5)
             ->withQueryString();
 
+        //        $dt = new Carbon($release->released_at);
+        //        $release_released_at = $dt->toFormattedDateString();
+
         return view('app.releases.index', compact('releases', 'search'));
     }
 
@@ -42,9 +45,10 @@ class ReleaseController extends Controller
 
         $projects = Project::pluck('name', 'id');
 
-        $tickets = Ticket::get();
+        //$tickets = Ticket::get();
+        //$issues = Issue::get();
 
-        return view('app.releases.create', compact('projects', 'tickets'));
+        return view('app.releases.create', compact('projects'));
     }
 
     /**
@@ -150,10 +154,10 @@ class ReleaseController extends Controller
         $release_released_at = $dt->toFormattedDateString();
 
         // Array contains search terms to replace on the Doc Text
-        $searchVal = ["replaceTerm1", "replaceTerm2", "<p>replaceTerm3</p>", "replaceTerm4", "replaceTerm5"];
+        $searchVal = ["replaceTerm1", "replaceTerm2", "<p>replaceTerm3</p>", "replaceTerm4", "replaceTerm5", "replaceTerm6"];
 
         // Array contains the new values to be substituted
-        $replaceVal = [$release->name, $release_released_at, $this->getIssuesAssociated($release), $release->name, $this->getIssuesMarkdownFormat($release)];
+        $replaceVal = [$release->name, $release_released_at, $this->getIssuesAssociated($release), $release->name, $this->getIssuesPreCodeTagFormat($release), $this->getIssuesMarkdownFormat($release)];
 
         // return Doc template with custom values replaced.
         return str_replace($searchVal, $replaceVal, $template->document);
@@ -170,13 +174,36 @@ class ReleaseController extends Controller
 
         $listIssues = "<ul>";
         foreach($release->issues as $issue){
-            $listIssues.="<li> <a href='{$issue->url}'>{$issue->key}</a> {$issue->summary}</li>";
+            $listIssues.= "<li> <a href='{$issue->url}'>{$issue->key}</a> {$issue->summary}</li>";
         }
         $listIssues.="</ul>";
 
         return $listIssues;
-
     }
+
+    /**
+     * return list of issues on in <code> format for Markdown
+     * @param $release
+     * @return string
+     */
+    public function getIssuesPreCodeTagFormat($release): string
+    {
+        $listIssues = '<pre data-language="Plain text" spellcheck="false"><code class="language-plaintext">';
+        $firsTime = true;
+        foreach($release->issues as $issue){
+            if($firsTime){
+                $listIssues.= "{$issue->key} {$issue->summary}";
+            }else{
+                $listIssues.= "<br>{$issue->key} {$issue->summary}";
+            }
+            $firsTime = false;
+        }
+        $listIssues.="</code></pre>";
+
+        return $listIssues;
+    }
+
+
 
     /**
      * return list of issues on in <code> format for Markdown
@@ -189,9 +216,9 @@ class ReleaseController extends Controller
         $firsTime = true;
         foreach($release->issues as $issue){
             if($firsTime){
-                $listIssues.= "{$issue->key} {$issue->summary}";
+                $listIssues.= trim("{$issue->key} {$issue->summary}  \ ");
             }else{
-                $listIssues.= "<br>{$issue->key} {$issue->summary}";
+                $listIssues.= trim("<br>{$issue->key} {$issue->summary}  \ ");
             }
             $firsTime = false;
         }

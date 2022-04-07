@@ -66,16 +66,17 @@ class TemplateFactory extends Factory
 -->
 
 <br>
-<!-- Releases -->
+<!-- Releases & Tags -->
 <p style="margin-left:0px;">Releases <a href="https://gitlab.com/paperstreet/tsv4/members-area/-/releases/replaceTerm1">https://gitlab.com/paperstreet/tsv4/members-area/-/releases/replaceTerm1</a></p>
-<p style="margin-left:0px;">Releases <a href="https://gitlab.com/paperstreet/x-group/x-forge/-/releases/replaceTerm1">https://gitlab.com/paperstreet/x-group/x-forge/-/releases/replaceTerm1</a></p>
-
-<!-- Tags -->
 <p style="margin-left:0px;">Tags <a href="https://gitlab.com/paperstreet/tsv4/members-area/-/tags/replaceTerm1">https://gitlab.com/paperstreet/tsv4/members-area/-/tags/replaceTerm1</a></p>
+
+<p style="margin-left:0px;">Releases <a href="https://gitlab.com/paperstreet/x-group/x-forge/-/releases/replaceTerm1">https://gitlab.com/paperstreet/x-group/x-forge/-/releases/replaceTerm1</a></p>
 <p style="margin-left:0px;">Tags <a href="https://gitlab.com/paperstreet/x-group/x-forge/-/tags/replaceTerm1">https://gitlab.com/paperstreet/x-group/x-forge/-/tags/replaceTerm1</a></p>
 
 <!-- Merge Request -->
-<h2 style="margin-left:0px;"><strong>Merge Request&nbsp;</strong></h2><p style="margin-left:0px;"><a href="https://gitlab.com/paperstreet/tsv4/members-area/-/merge_requests/4050/diffs">https://gitlab.com/paperstreet/tsv4/members-area/-/merge_requests/4050/diffs</a></p>
+<h2 style="margin-left:0px;"><strong>Merge Request </strong></h2>
+<p style="margin-left:0px;">
+<a href="https://gitlab.com/paperstreet/tsv4/members-area/-/merge_requests/4050/diffs">https://gitlab.com/paperstreet/tsv4/members-area/-/merge_requests/4050/diffs</a></p>
 
 <!-- Target group -->
 <p style="margin-left:0px;">&nbsp;</p><h2 style="margin-left:0px;"><strong>Target group(s) affected by this release&nbsp;</strong></h2><hr>
@@ -100,7 +101,25 @@ php artisan migrate --force
 php artisan load_movies_to_elastic_search
 </code></pre>
 
-<p style="margin-left:0px;"><strong>Environment File (.env) Diff</strong></p><p style="margin-left:0px;">Old Values</p><pre><code class="language-plaintext">&nbsp;</code></pre><p style="margin-left:0px;">New Values</p><pre><code class="language-plaintext">&nbsp;</code></pre><h2 style="margin-left:0px;">Tests <img src="https://pf-emoji-service--cdn.us-east-1.prod.public.atl-paas.net/atlassian/flag_on_32.png" alt=":flag_on:">&nbsp;</h2><p style="margin-left:0px;">UI tests ( N/A)</p><p style="margin-left:0px;"><s>A failed test is not legit, tested manually works fine. N/A</s></p><p style="margin-left:0px;">&nbsp;</p><h2 style="margin-left:0px;"><strong>Post-Release Review (RM Performance Evaluation)</strong></h2><p style="margin-left:0px;">Keep doing :</p><p style="margin-left:0px;">Don't Repeat :</p><p style="margin-left:0px;">root cause.</p><p>replaceTerm5<br>&nbsp;</p>
+<p style="margin-left:0px;">
+<strong>Environment File (.env) Diff</strong></p>
+<p style="margin-left:0px;">Old Values</p>
+<pre><code class="language-plaintext">&nbsp;</code></pre>
+<p style="margin-left:0px;">New Values</p>
+<pre><code class="language-plaintext">&nbsp;</code></pre>
+
+<h2 style="margin-left:0px;">Tests <img src="https://pf-emoji-service--cdn.us-east-1.prod.public.atl-paas.net/atlassian/flag_on_32.png" alt=":flag_on:"></h2>
+<p style="margin-left:0px;">UI tests ( N/A)</p>
+<p style="margin-left:0px;"><s>A failed test is not legit, tested manually works fine. N/A</s></p>
+<p style="margin-left:0px;">&nbsp;</p><h2 style="margin-left:0px;"><strong>Post-Release Review (RM Performance Evaluation)</strong></h2>
+<p style="margin-left:0px;">Keep doing :</p><p style="margin-left:0px;">Don't Repeat :</p><p style="margin-left:0px;">root cause.</p>
+
+
+<h2 style="margin-left:0px;"><strong>Tags </strong></h2>
+<p style="margin-left:0px;">Message</p>
+replaceTerm5
+<p style="margin-left:0px;">Release notes</p>
+replaceTerm6
  
 HERE3;
     }

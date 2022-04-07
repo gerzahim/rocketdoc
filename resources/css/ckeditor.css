@@ -50,6 +50,7 @@ main .ck-editor[role='application'] {
     z-index: var(--ck-sample-editor-z-index);
 }
 
+
 .editor-container {
     display: flex;
     flex-direction: row;

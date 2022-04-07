@@ -82,7 +82,14 @@
                                     {{ $release->status ?? '-' }}
                                 </td>
                                 <td class="px-4 py-3 text-left">
-                                    {{ $release->released_at ?? '-' }}
+                                    @php
+                                        $dt = new \Carbon\Carbon($release->released_at);
+                                        $release_released_at = $dt->toFormattedDateString();
+                                    @endphp
+
+{{--                                    {{ $release->released_at ?? '-' }}--}}
+                                    {{ $release_released_at ?? '-' }}
+
                                 </td>
                                 <td
                                     class="px-4 py-3 text-center"

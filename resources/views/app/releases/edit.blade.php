@@ -39,6 +39,13 @@
                             <i class="mr-1 icon ion-md-add text-primary"></i>
                             @lang('crud.common.create')
                         </a>
+                        <button
+                                class="button button-secondary"
+                                onclick="resetDoc();"
+                        >
+                            <i class="mr-1 icon ion-md-document"></i>
+                            Clear Doc
+                        </button>
 
                         <button
                             type="submit"
@@ -47,9 +54,19 @@
                             <i class="mr-1 icon ion-md-save"></i>
                             @lang('crud.common.update')
                         </button>
+
+
                     </div>
                 </x-form>
             </x-partials.card>
+            @push('clear-generate')
+                <script>
+                    function resetDoc() {
+                        event.preventDefault();
+                        CKEDITOR.instances.document.setData("Initial content goes here.");
+                    }
+                </script>
+            @endpush
 
             @can('view-any', App\Models\Issue::class)
             <x-partials.card class="mt-5">

@@ -97,5 +97,6 @@
         <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
         @stack('ckeditor-scripts')
         @stack('copy-clipboard-scripts')
+        @stack('clear-generate')
     </body>
 </html>

@@ -10,7 +10,7 @@
         <title>🚀 RocketDoc</title>
         
         <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="{{ asset('js/app.js', true) }}" defer></script>
 
         <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
         
@@ -19,7 +19,7 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
         
         <!-- Styles -->
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/app.css', true) }}" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
         
         <!-- Icons -->
@@ -94,7 +94,7 @@
                 })
             })
         </script>
-        <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
+        <script src="{{ asset('js/ckeditor/ckeditor.js', true) }}"></script>
         @stack('ckeditor-scripts')
         @stack('copy-clipboard-scripts')
         @stack('clear-generate')

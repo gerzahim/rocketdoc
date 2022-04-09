@@ -59,7 +59,7 @@ class TemplateFactory extends Factory
 </ul>
 <h3 style="margin-left:0px;">Tickets</h3>
 <p>replaceTerm3</p>
-
+<hr>
 <!--
 <h3 style="margin-left:0px;">More Details</h3>
 <a href="http://localhost/releases/replaceTerm{issue->id}">replaceTerm1</a>
@@ -79,7 +79,8 @@ class TemplateFactory extends Factory
 <a href="https://gitlab.com/paperstreet/tsv4/members-area/-/merge_requests/4050/diffs">https://gitlab.com/paperstreet/tsv4/members-area/-/merge_requests/4050/diffs</a></p>
 
 <!-- Target group -->
-<p style="margin-left:0px;">&nbsp;</p><h2 style="margin-left:0px;"><strong>Target group(s) affected by this release&nbsp;</strong></h2><hr>
+<p style="margin-left:0px;">&nbsp;</p><h2 style="margin-left:0px;"><strong>Target group(s) affected by this release&nbsp;</strong></h2>
+<hr>
 <ul><li>[ ] Ads</li>
 <li>[ ] Authentication</li>
 <li>[ ] Upsells</li>

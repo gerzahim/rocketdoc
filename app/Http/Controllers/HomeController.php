@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Release;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     /**
@@ -23,6 +24,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        $releases = Release::latest()
+            ->paginate(100);
+
+
+        foreach ($releases as $release){
+            $arrA = explode("<hr>", $release->document);
+            $release->document = $arrA[0]."<br>";
+        }
+
+        return view('app.releases.home', compact('releases'));
     }
 }

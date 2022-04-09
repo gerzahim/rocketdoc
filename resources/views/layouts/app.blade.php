@@ -10,7 +10,12 @@
         <title>🚀 RocketDoc</title>
         
         <!-- Scripts -->
-        <script src="{{ asset('js/app.js', true) }}" defer></script>
+        @if( env('APP_ENV') == 'local')
+            <script src="{{ asset('js/app.js') }}" defer></script>
+        @else
+            <script src="{{ asset('js/app.js', true) }}" defer></script>
+        @endif
+
 
         <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
         
@@ -19,7 +24,11 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
         
         <!-- Styles -->
-        <link href="{{ asset('css/app.css', true) }}" rel="stylesheet">
+        @if( env('APP_ENV') == 'local')
+            <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        @else
+            <link href="{{ asset('css/app.css', true) }}" rel="stylesheet">
+        @endif
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
         
         <!-- Icons -->
@@ -94,7 +103,12 @@
                 })
             })
         </script>
-        <script src="{{ asset('js/ckeditor/ckeditor.js', true) }}"></script>
+        @if( env('APP_ENV') == 'local')
+            <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
+        @else
+            <script src="{{ asset('js/ckeditor/ckeditor.js', true) }}"></script>
+        @endif
+
         @stack('ckeditor-scripts')
         @stack('copy-clipboard-scripts')
         @stack('clear-generate')

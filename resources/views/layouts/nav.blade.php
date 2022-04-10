@@ -97,7 +97,7 @@
             </div>
             @else
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('login') }}">
+                    <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
                         Log in
                     </x-nav-link>
                 </div>

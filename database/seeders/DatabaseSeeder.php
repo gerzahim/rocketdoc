@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             ->count(1)
             ->create([
                 'name' => 'Gerza',
-                'email' => 'admin',
+                'email' => 'admin@admin.com',
                 'password' => \Hash::make('admin'),
             ]);
         $this->call(PermissionsSeeder::class);

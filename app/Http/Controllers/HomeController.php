@@ -24,7 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $releases = Release::latest()
+        $releases = Release::where('status', 'completed')
+            ->latest()
             ->paginate(100);
 
         foreach ($releases as $release){

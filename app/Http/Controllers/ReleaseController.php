@@ -156,7 +156,7 @@ class ReleaseController extends Controller
         $searchVal = ["replaceTerm0", "replaceTerm1", "replaceTerm2", "<p>replaceTerm3</p>", "replaceTerm4", "replaceTerm5", "replaceTerm6"];
 
         $url = config('app.url')."/releases/".$release->id;
-        
+
 //        $url = https://changelog.teamskeet.com/releases/5;
 
         // Array contains the new values to be substituted

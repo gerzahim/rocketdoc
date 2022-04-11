@@ -61,11 +61,9 @@ class TemplateFactory extends Factory
 </ul>
 <h3 style="margin-left:0px;">Tickets</h3>
 <p>replaceTerm3</p>
+
+<!-- 1st Horizontal Line -->
 <hr>
-<!--
-<h3 style="margin-left:0px;">More Details</h3>
-<a href="http://localhost/releases/replaceTerm{issue->id}">replaceTerm1</a>
--->
 
 <br>
 <!-- Releases & Tags -->

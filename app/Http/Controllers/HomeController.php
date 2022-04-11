@@ -35,4 +35,17 @@ class HomeController extends Controller
 
         return view('app.releases.home', compact('releases'));
     }
+
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Release $release
+     * @return \Illuminate\Http\Response
+     */
+    public function show($releaseID)
+    {
+        $release = Release::find($releaseID);
+
+        return view('app.releases.show', compact('release'));
+    }
 }

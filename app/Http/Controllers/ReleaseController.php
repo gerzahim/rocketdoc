@@ -155,8 +155,8 @@ class ReleaseController extends Controller
         // Array contains search terms to replace on the Doc Text
         $searchVal = ["replaceTerm0", "replaceTerm1", "replaceTerm2", "<p>replaceTerm3</p>", "replaceTerm4", "replaceTerm5", "replaceTerm6"];
 
-        //$url = https://changelog.teamskeet.com/releases/5;
-        $url = config('app.url')."releases/".$release->id;
+        //$url = https://changelog.teamskeet.com/show/5;
+        $url = config('app.url')."show/".$release->id;
 
         // Array contains the new values to be substituted
         $replaceVal = [$url, $release->name, $release_released_at, $this->getIssuesAssociated($release), $release->name, $this->getIssuesPreCodeTagFormat($release), $this->getIssuesMarkdownFormat($release)];

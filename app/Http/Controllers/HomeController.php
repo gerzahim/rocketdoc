@@ -24,7 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $releases = Release::latest()
+        $releases = Release::where('status', 'completed')
+            ->latest()
             ->paginate(100);
 
         foreach ($releases as $release){
@@ -34,5 +35,18 @@ class HomeController extends Controller
         }
 
         return view('app.releases.home', compact('releases'));
+    }
+
+
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Release $release
+     * @return \Illuminate\Http\Response
+     */
+    public function show($releaseID)
+    {
+        $release = Release::find($releaseID);
+
+        return view('app.releases.show', compact('release'));
     }
 }

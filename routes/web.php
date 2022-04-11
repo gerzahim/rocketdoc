@@ -28,6 +28,7 @@ use App\Http\Controllers\PermissionController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/show/{releaseID}', [HomeController::class, 'show'])->name('show');
 
 Auth::routes();
 

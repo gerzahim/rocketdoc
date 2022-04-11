@@ -153,10 +153,14 @@ class ReleaseController extends Controller
         $release_released_at = $dt->toFormattedDateString();
 
         // Array contains search terms to replace on the Doc Text
-        $searchVal = ["replaceTerm1", "replaceTerm2", "<p>replaceTerm3</p>", "replaceTerm4", "replaceTerm5", "replaceTerm6"];
+        $searchVal = ["replaceTerm0", "replaceTerm1", "replaceTerm2", "<p>replaceTerm3</p>", "replaceTerm4", "replaceTerm5", "replaceTerm6"];
+
+        $url = config('app.url')."/releases/".$release->id;
+        
+//        $url = https://changelog.teamskeet.com/releases/5;
 
         // Array contains the new values to be substituted
-        $replaceVal = [$release->name, $release_released_at, $this->getIssuesAssociated($release), $release->name, $this->getIssuesPreCodeTagFormat($release), $this->getIssuesMarkdownFormat($release)];
+        $replaceVal = [$url, $release->name, $release_released_at, $this->getIssuesAssociated($release), $release->name, $this->getIssuesPreCodeTagFormat($release), $this->getIssuesMarkdownFormat($release)];
 
         // return Doc template with custom values replaced.
         return str_replace($searchVal, $replaceVal, $template->document);

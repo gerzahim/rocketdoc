@@ -31,7 +31,9 @@ class TemplateFactory extends Factory
     public function getDoc(){
 
         return <<<HERE3
-<h1>replaceTerm1</h1>
+<h2>
+    <a href="replaceTerm0"><strong>replaceTerm1</strong></a>
+</h2>
 <p style="margin-left:0px;">replaceTerm2</p>
 <h4>Fixes</h4>
 <ul>

@@ -7,7 +7,7 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
         
-        <title>🚀 RocketDoc</title>
+        <title>🚀 RocketDoc - PSM Changelog</title>
         
         <!-- Scripts -->
         @if( env('APP_ENV') == 'local')

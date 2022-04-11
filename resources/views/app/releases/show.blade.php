@@ -16,6 +16,7 @@
                 </x-slot>
 
                 <div class="mt-4 px-4">
+                    {{--
                     <div class="mb-4">
                         <h5 class="font-medium text-gray-700">
                             @lang('crud.releases.inputs.name')
@@ -46,17 +47,18 @@
                             $dt = new \Carbon\Carbon($release->released_at);
                             $release_released_at = $dt->toFormattedDateString();
                         @endphp
-
-{{--                        <span>{{ $release->released_at ?? '-' }}</span>--}}
                         <span>{{ $release_released_at ?? '-' }}</span>
                     </div>
+                    --}}
                     <div class="mb-4 prose">
+                        {{--
                         <h5 class="font-medium text-gray-700">
                             @lang('crud.releases.inputs.document')
                             <button id="button1" onclick="copyToClipboard('document12');return false;">Click to copy</button>
                         </h5>
                         <br>
-                        {{--                        <span>{!! $release->document ?? '-' !!}</span>--}}
+                        <span>{!! $release->document ?? '-' !!}</span>
+                        --}}
                         <article id="document12">
                             {!! html_entity_decode($release->document) ?? '-' !!}
                         </article>

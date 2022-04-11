@@ -49,7 +49,7 @@ class IssueController extends Controller
     {
         $this->authorize('create', Issue::class);
 
-        $validated = $request->validated();
+        $request->validated();
 
         $key = $request->get('key');
         $summary = $request->get('summary');
@@ -60,6 +60,7 @@ class IssueController extends Controller
             'summary' => $summary,
             'url'     => $url,
         ];
+
 
         // If only get Issue-Key from form , fetch all Info from Jira API
         if( empty($summary) || empty($url)) {
@@ -113,10 +114,16 @@ class IssueController extends Controller
     {
         $this->authorize('update', $issue);
 
-        $validated = $request->validated();
-        $issue->releases()->sync($request->releases);
+        $request->validated();
+        //$issue->releases()->sync($request->releases);
 
-        $issue->update($validated);
+        $issueInfo = [
+            'key'     => $request->key,
+            'summary' => $request->summary,
+            'url'     => $request->url,
+        ];
+
+        $issue->update($issueInfo);
 
         return redirect()
             ->route('issues.edit', $issue)

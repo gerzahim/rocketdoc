@@ -97,7 +97,8 @@ class ReleaseController extends Controller
         if($release->document == null){
             $release->document = $this->createDocumentFromTemplate($release);
         }
-
+        dd($release->document);
+        
         return view(
             'app.releases.edit',
             compact('release', 'projects', 'issues')

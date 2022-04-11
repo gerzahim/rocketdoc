@@ -111,6 +111,7 @@ class ReleaseController extends Controller
      */
     public function update(ReleaseUpdateRequest $request, Release $release)
     {
+        dd($release->document);
         $this->authorize('update', $release);
 
         $validated = $request->validated();

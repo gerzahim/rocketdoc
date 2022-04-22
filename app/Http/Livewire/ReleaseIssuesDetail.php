@@ -30,10 +30,10 @@ class ReleaseIssuesDetail extends Component
 
         foreach($issues as $issue) {
             $this->issuesForSelect[] = [
-                'id' => $issue->id,
-                'key' => $issue->key,
+                'id'      => $issue->id,
+                'key'     => $issue->key,
                 'summary' => $issue->summary,
-                'name' => "{$issue->key} {$issue->summary}",
+                'name'    => "{$issue->key} {$issue->summary}",
             ];
         }
 

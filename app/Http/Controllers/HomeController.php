@@ -39,13 +39,23 @@ class HomeController extends Controller
 
 
     /**
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Release $release
-     * @return \Illuminate\Http\Response
+     * @param $releaseID
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function show($releaseID)
     {
         $release = Release::find($releaseID);
+
+        return view('app.releases.show', compact('release'));
+    }
+
+    /**
+     * @param $releaseName
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function searchByName($releaseName)
+    {
+        $release = Release::where('name', $releaseName)->first();
 
         return view('app.releases.show', compact('release'));
     }

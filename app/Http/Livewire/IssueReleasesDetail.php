@@ -26,7 +26,8 @@ class IssueReleasesDetail extends Component
     public function mount(Issue $issue)
     {
         $this->issue = $issue;
-        $this->releasesForSelect = Release::pluck('name', 'id');
+        //$this->releasesForSelect = Release::pluck('name', 'id');
+        $this->releasesForSelect = Release::orderBy('released_at')->pluck('name', 'id');
         $this->resetReleaseData();
     }
 

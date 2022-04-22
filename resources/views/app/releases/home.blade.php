@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-3">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <x-partials.card>
                 <x-slot name="title">
@@ -17,7 +17,7 @@
                     <table class="w-full max-w-full mb-4 bg-transparent">
                         <tbody class="text-gray-600">
                             @forelse($releases as $release)
-                            <tr class="hover:bg-gray-50">
+                            <tr class="hover:bg-gray-50" id="{{$release->name}}">
                                 <td class="px-4 py-3 text-left">
                                     {!! html_entity_decode($release->document) ?? '-' !!}
                                 </td>

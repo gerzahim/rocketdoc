@@ -24,7 +24,7 @@ class IssueController extends Controller
 
         $issues = Issue::search($search)
             ->latest()
-            ->paginate(15)
+            ->paginate(10)
             ->withQueryString();
 
         return view('app.issues.index', compact('issues', 'search'));

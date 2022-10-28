@@ -27,7 +27,7 @@ class IssueReleasesDetail extends Component
     {
         $this->issue = $issue;
         //$this->releasesForSelect = Release::pluck('name', 'id');
-        $this->releasesForSelect = Release::orderBy('released_at')->pluck('name', 'id')->take(2);
+        $this->releasesForSelect = Release::orderBy('released_at')->pluck('name', 'id')->take(6);
         $this->resetReleaseData();
     }
 

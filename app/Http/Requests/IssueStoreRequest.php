@@ -24,7 +24,7 @@ class IssueStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'key' => ['required', 'max:255', 'string'],
+            'key' => ['required|unique:issues', 'max:255', 'string'],
 //            'summary' => ['required', 'max:255', 'string'],
 //            'url' => ['required', 'url'],
         ];

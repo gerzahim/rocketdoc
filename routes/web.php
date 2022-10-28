@@ -22,12 +22,11 @@ use App\Http\Controllers\PermissionController;
 |
 */
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
-//Route::get('/home', [HomeController::class, 'index'])->name('home');
+//Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/show/{releaseID}', [HomeController::class, 'show'])->name('show');
 Route::get('/release/{releaseName}', [HomeController::class, 'searchByName'])->name('release');
 

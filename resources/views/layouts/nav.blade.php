@@ -20,16 +20,7 @@
 
 
                     <x-nav-dropdown title="Apps" align="right" width="48">
-                        @can('view-any', App\Models\User::class)
-                            <x-dropdown-link href="{{ route('users.index') }}">
-                                Users
-                            </x-dropdown-link>
-                        @endcan
-                        @can('view-any', App\Models\Project::class)
-                            <x-dropdown-link href="{{ route('projects.index') }}">
-                                Projects
-                            </x-dropdown-link>
-                        @endcan
+
                         @can('view-any', App\Models\Release::class)
                             <x-dropdown-link href="{{ route('releases.index') }}">
                                 Releases
@@ -40,6 +31,18 @@
                                 Issues
                             </x-dropdown-link>
                         @endcan
+
+                        @can('view-any', App\Models\User::class)
+                            <x-dropdown-link href="{{ route('users.index') }}">
+                                Users
+                            </x-dropdown-link>
+                        @endcan
+                        @can('view-any', App\Models\Project::class)
+                            <x-dropdown-link href="{{ route('projects.index') }}">
+                                Projects
+                            </x-dropdown-link>
+                        @endcan
+
                         @can('view-any', App\Models\Template::class)
                             <x-dropdown-link href="{{ route('templates.index') }}">
                                 Templates

@@ -8,6 +8,8 @@ use App\Services\JiraService;
 use Illuminate\Http\Request;
 use App\Http\Requests\IssueStoreRequest;
 use App\Http\Requests\IssueUpdateRequest;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Session;
 
 class IssueController extends Controller

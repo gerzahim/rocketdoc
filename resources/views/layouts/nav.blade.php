@@ -18,85 +18,83 @@
                         </x-nav-link>
                     </div>
 
-                    
+
                     <x-nav-dropdown title="Apps" align="right" width="48">
-                            @can('view-any', App\Models\Release::class)
-                                <x-dropdown-link href="{{ route('releases.index') }}">
-                                    Releases
-                                </x-dropdown-link>
-                            @endcan
-                            @can('view-any', App\Models\Issue::class)
-                                <x-dropdown-link href="{{ route('issues.index') }}">
-                                    Issues
-                                </x-dropdown-link>
-                            @endcan
-
-                            @can('view-any', App\Models\User::class)
+                        @can('view-any', App\Models\User::class)
                             <x-dropdown-link href="{{ route('users.index') }}">
-                            Users
+                                Users
                             </x-dropdown-link>
-                            @endcan
-                            @can('view-any', App\Models\Project::class)
+                        @endcan
+                        @can('view-any', App\Models\Project::class)
                             <x-dropdown-link href="{{ route('projects.index') }}">
-                            Projects
+                                Projects
                             </x-dropdown-link>
-                            @endcan
-
-                            @can('view-any', App\Models\Template::class)
+                        @endcan
+                        @can('view-any', App\Models\Release::class)
+                            <x-dropdown-link href="{{ route('releases.index') }}">
+                                Releases
+                            </x-dropdown-link>
+                        @endcan
+                        @can('view-any', App\Models\Issue::class)
+                            <x-dropdown-link href="{{ route('issues.index') }}">
+                                Issues
+                            </x-dropdown-link>
+                        @endcan
+                        @can('view-any', App\Models\Template::class)
                             <x-dropdown-link href="{{ route('templates.index') }}">
-                            Templates
+                                Templates
                             </x-dropdown-link>
-                            @endcan
+                        @endcan
                     </x-nav-dropdown>
 
-                    @if (Auth::user()->can('view-any', Spatie\Permission\Models\Role::class) || 
+                    @if (Auth::user()->can('view-any', Spatie\Permission\Models\Role::class) ||
                         Auth::user()->can('view-any', Spatie\Permission\Models\Permission::class))
-                    <x-nav-dropdown title="Access Management" align="right" width="48">
-                        
-                        @can('view-any', Spatie\Permission\Models\Role::class)
-                        <x-dropdown-link href="{{ route('roles.index') }}">Roles</x-dropdown-link>
-                        @endcan
-                    
-                        @can('view-any', Spatie\Permission\Models\Permission::class)
-                        <x-dropdown-link href="{{ route('permissions.index') }}">Permissions</x-dropdown-link>
-                        @endcan
-                        
-                    </x-nav-dropdown>
+                        <x-nav-dropdown title="Access Management" align="right" width="48">
+
+                            @can('view-any', Spatie\Permission\Models\Role::class)
+                                <x-dropdown-link href="{{ route('roles.index') }}">Roles</x-dropdown-link>
+                            @endcan
+
+                            @can('view-any', Spatie\Permission\Models\Permission::class)
+                                <x-dropdown-link href="{{ route('permissions.index') }}">Permissions</x-dropdown-link>
+                            @endcan
+
+                        </x-nav-dropdown>
                     @endif
                 @endauth
-                
+
             </div>
 
             <!-- Settings Dropdown -->
             @auth
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
-                <x-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-                            <div>{{ Auth::user()->name }}</div>
+                <div class="hidden sm:flex sm:items-center sm:ml-6">
+                    <x-dropdown align="right" width="48">
+                        <x-slot name="trigger">
+                            <button class="flex items-center text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+                                <div>{{ Auth::user()->name }}</div>
 
-                            <div class="ml-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </button>
-                    </x-slot>
+                                <div class="ml-1">
+                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            </button>
+                        </x-slot>
 
-                    <x-slot name="content">
-                        <!-- Authentication -->
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
+                        <x-slot name="content">
+                            <!-- Authentication -->
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
 
-                            <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
+                                <x-dropdown-link :href="route('logout')"
+                                                 onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Logout') }}
-                            </x-dropdown-link>
-                        </form>
-                    </x-slot>
-                </x-dropdown>
-            </div>
+                                    {{ __('Logout') }}
+                                </x-dropdown-link>
+                            </form>
+                        </x-slot>
+                    </x-dropdown>
+                </div>
             @else
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
@@ -120,79 +118,79 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         @auth
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                    {{ __('Dashboard') }}
+                </x-responsive-nav-link>
 
                 @can('view-any', App\Models\User::class)
-                <x-responsive-nav-link href="{{ route('users.index') }}">
-                Users
-                </x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('users.index') }}">
+                        Users
+                    </x-responsive-nav-link>
                 @endcan
                 @can('view-any', App\Models\Project::class)
-                <x-responsive-nav-link href="{{ route('projects.index') }}">
-                Projects
-                </x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('projects.index') }}">
+                        Projects
+                    </x-responsive-nav-link>
                 @endcan
                 @can('view-any', App\Models\Release::class)
-                <x-responsive-nav-link href="{{ route('releases.index') }}">
-                Releases
-                </x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('releases.index') }}">
+                        Releases
+                    </x-responsive-nav-link>
                 @endcan
                 @can('view-any', App\Models\Issue::class)
-                <x-responsive-nav-link href="{{ route('issues.index') }}">
-                Issues
-                </x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('issues.index') }}">
+                        Issues
+                    </x-responsive-nav-link>
                 @endcan
                 @can('view-any', App\Models\Template::class)
-                <x-responsive-nav-link href="{{ route('templates.index') }}">
-                Templates
-                </x-responsive-nav-link>
+                    <x-responsive-nav-link href="{{ route('templates.index') }}">
+                        Templates
+                    </x-responsive-nav-link>
                 @endcan
 
-                @if (Auth::user()->can('view-any', Spatie\Permission\Models\Role::class) || 
+                @if (Auth::user()->can('view-any', Spatie\Permission\Models\Role::class) ||
                     Auth::user()->can('view-any', Spatie\Permission\Models\Permission::class))
-                    
+
                     @can('view-any', Spatie\Permission\Models\Role::class)
-                    <x-responsive-nav-link href="{{ route('roles.index') }}">Roles</x-responsive-nav-link>
+                        <x-responsive-nav-link href="{{ route('roles.index') }}">Roles</x-responsive-nav-link>
                     @endcan
-                
+
                     @can('view-any', Spatie\Permission\Models\Permission::class)
-                    <x-responsive-nav-link href="{{ route('permissions.index') }}">Permissions</x-responsive-nav-link>
+                        <x-responsive-nav-link href="{{ route('permissions.index') }}">Permissions</x-responsive-nav-link>
                     @endcan
-                    
+
                 @endif
-        </div>
-
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="flex items-center px-4">
-                <div class="shrink-0">
-                    <svg class="h-10 w-10 fill-current text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
-                </div>
-
-                <div class="ml-3">
-                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
-                </div>
             </div>
 
-            <div class="mt-3 space-y-1">
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
+            <!-- Responsive Settings Options -->
+            <div class="pt-4 pb-1 border-t border-gray-200">
+                <div class="flex items-center px-4">
+                    <div class="shrink-0">
+                        <svg class="h-10 w-10 fill-current text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    </div>
 
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
+                    <div class="ml-3">
+                        <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
+                        <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                    </div>
+                </div>
+
+                <div class="mt-3 space-y-1">
+                    <!-- Authentication -->
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+
+                        <x-responsive-nav-link :href="route('logout')"
+                                               onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Logout') }}
-                    </x-responsive-nav-link>
-                </form>
+                            {{ __('Logout') }}
+                        </x-responsive-nav-link>
+                    </form>
+                </div>
             </div>
-        </div>
         @endauth
     </div>
 </nav>

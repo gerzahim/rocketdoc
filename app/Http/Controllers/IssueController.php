@@ -8,8 +8,6 @@ use App\Services\JiraService;
 use Illuminate\Http\Request;
 use App\Http\Requests\IssueStoreRequest;
 use App\Http\Requests\IssueUpdateRequest;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 use Session;
 
 class IssueController extends Controller
@@ -26,7 +24,7 @@ class IssueController extends Controller
 
         $issues = Issue::search($search)
             ->latest()
-            ->paginate(5)
+            ->paginate(15)
             ->withQueryString();
 
         return view('app.issues.index', compact('issues', 'search'));

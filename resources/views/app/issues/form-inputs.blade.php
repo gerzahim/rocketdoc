@@ -5,9 +5,9 @@
         <x-inputs.text
             name="key"
             label="Key"
-            value="{{ old('key', ($editing ? $issue->key : 'TSV4-')) }}"
+            value="{{ old('key', ($editing ? $issue->key : '')) }}"
             maxlength="255"
-            placeholder="Key"
+            placeholder="TSV4-"
             required
         ></x-inputs.text>
     </x-inputs.group>

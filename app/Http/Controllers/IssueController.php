@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Issue;
+use App\Models\Project;
 use App\Models\Release;
 use App\Services\JiraService;
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ class IssueController extends Controller
 
         $issues = Issue::search($search)
             ->latest()
-            ->paginate(5)
+            ->paginate(10)
             ->withQueryString();
 
         return view('app.issues.index', compact('issues', 'search'));
@@ -47,6 +48,13 @@ class IssueController extends Controller
      */
     public function store(IssueStoreRequest $request, JiraService $jiraService)
     {
+        ///////////////////////////////////////////
+        /// Adding issues options
+        /// option1 = LR,5743,5744,5745,5746,5747 , Bulk and attach to latest release
+        /// option2 = 5744,5745,5746,5747 , bulk
+        /// option3 = TSV4-5743 , one by one
+        //////////////////////////////////////////
+
         $this->authorize('create', Issue::class);
 
         $request->validated();
@@ -55,25 +63,79 @@ class IssueController extends Controller
         $summary = $request->get('summary');
         $url = $request->get('url');
 
-        $issueInfo = [
-            'key'     => $key,
-            'summary' => $summary,
-            'url'     => $url,
-        ];
+        ///////////////////////////////////////////
+        /// Adding issues in bulk, alternatives
+        /// key = LR,TSV4-5743,OPS-5744,TSV4-5745,OPS-5746,TSV4-5747 , Bulk and attach to latest release
+        /// key = LR,5744,5745,5746,5747, Bulk and attach to latest release
+        /// key = 5744,5745,5746,5747
+        /// key = 5744
+        //////////////////////////////////////////
+
+        $attachToLastRelease = false;
+        // If only provided Issue-Key, get Issue Info from Jira API
+        if ( empty($summary) || empty($url) ) {
+
+            // comma character in the string, means multiple issues provided
+            $keys = explode(',', $key);
+
+            // flag to attach to last release
+            if (str_contains($key, 'LR') ) {
+                $attachToLastRelease = true;
+                $lastRelease = Release::latest()->first();
+            }
+
+            // loop through each key and add to issues table, BULK
+            foreach ($keys as $key) {
+
+                // Verify if Issue exists already in issues table
+                $issueKey = $jiraService->formatKey($key);
+                $issue = Issue::where('key', $issueKey)->first();
+
+                // If the Issue does not exist, get the Data from Jira API
+                if (!$issue) {
+                    $issueInfo = $jiraService->getIssueInfo($key);
+
+                    if (empty($issueInfo)) {
+                        Session::flash('error', $key.' Issue was not Found,  Atlassian JIRA API');
+                        continue;
+                    }
+
+                    // Insert Issue into issues table
+                    $issue = Issue::create($issueInfo);
+                }
+
+                // Attach to last release
+                if ($attachToLastRelease) {
+                    $lastRelease->issues()->attach($issue->id);
+                }
+            }
+            // redirect to releases page
+            if($attachToLastRelease) {
+                return redirect()
+                    ->route('releases.edit', $lastRelease)
+                    ->withSuccess(__('crud.common.saved'));
+            }
+
+            // redirect to List of Issues
+            return redirect()->route('issues.index')->withSuccess(__('crud.common.created'));
 
 
-        // If only get Issue-Key from form , fetch all Info from Jira API
-        if( empty($summary) || empty($url)) {
-            $issueInfo = $jiraService->getIssueInfo($key);
+        }else {
+
+            // Manually add Issue without Jira API
+            $issueInfo = [
+                'key'     => $key,
+                'summary' => $summary,
+                'url'     => $url,
+            ];
+            $issue = Issue::create($issueInfo);
         }
 
-        if (empty($issueInfo)){
-            Session::flash('error', 'Issue not Found,  Atlassian JIRA API');
-
+        if (empty($issue)){
+            Session::flash('error', 'Failed to Create Issue');
             return redirect()->route('issues.index');
         }
 
-        $issue = Issue::create($issueInfo);
         return redirect()
             ->route('issues.edit', $issue)
             ->withSuccess(__('crud.common.created'));

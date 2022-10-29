@@ -5,7 +5,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\IssueController;
-use App\Http\Controllers\TicketController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ReleaseController;
 use App\Http\Controllers\TemplateController;
@@ -27,7 +26,6 @@ use App\Http\Controllers\PermissionController;
 //});
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-//Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/show/{releaseID}', [HomeController::class, 'show'])->name('show');
 Route::get('/release/{releaseName}', [HomeController::class, 'searchByName'])->name('release');
 

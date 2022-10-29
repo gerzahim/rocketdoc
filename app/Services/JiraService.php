@@ -12,11 +12,6 @@ class JiraService {
      */
     protected $client;
 
-    /**
-     * @var \Illuminate\Foundation\Application|mixed
-     */
-    protected $apiKey;
-
     public function __construct(Client $client)
     {
         $this->client  = $client;
@@ -28,12 +23,17 @@ class JiraService {
 
     public function getIssueInfo($key)
     {
+        // if empty key or key is LR, return empty
+        if (empty($key) || str_contains($key, 'LR')) {
+            return [];
+        }
 
+        $key = $this->formatKey($key);
 
-        $url = '/issue/'.$key;
-        $uri = $this->apiBaseUrl.$url;
         //uri= https://paperstreet.atlassian.net/rest/api/3/issue/TSV4-3333
+        $uri = $this->apiBaseUrl.'/issue/'.$key;
 
+        // fetch issue info from Jira
         try {
             $response = $this->client->get(
                 $uri,
@@ -44,10 +44,7 @@ class JiraService {
                     ]
                 ]);
 
-
-
-            if ( $response->getStatusCode() === 200 )
-            {
+            if ( $response->getStatusCode() === 200 ) {
                 $issue = json_decode($response->getBody(), true);
                 return [
                     'key'     => $key,
@@ -61,5 +58,19 @@ class JiraService {
         }  catch (\GuzzleHttp\Exception\RequestException $e) {
             return [];
         }
+    }
+
+
+    // clean Key string
+    public function formatKey($key)
+    {
+        // trim both sides of the string
+        $key = trim($key);
+
+        if ( ! str_contains($key, '-')) {
+            // if key does not contain dash, add TSV4- prefix, TSV4-3333
+            $key = 'TSV4-'.$key;
+        }
+        return $key;
     }
 }

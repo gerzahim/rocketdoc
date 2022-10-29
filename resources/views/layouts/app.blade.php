@@ -17,11 +17,13 @@
         @endif
 
 
-        <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+{{--        <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>--}}
+        <script src="{{ asset('js/alpinejs.cdn.min.js') }}" defer></script>
         
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+        <link href="{{ asset('fonts/ionicons.woff', true) }}" rel="stylesheet">
         
         <!-- Styles -->
         @if( env('APP_ENV') == 'local')
@@ -29,10 +31,12 @@
         @else
             <link href="{{ asset('css/app.css', true) }}" rel="stylesheet">
         @endif
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">
+{{--        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css">--}}
+        <link href="{{ asset('css/notyf.min.css') }}" rel="stylesheet">
         
         <!-- Icons -->
-        <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+        <link href="{{ asset('css/ionicons.min.css') }}" rel="stylesheet">
+{{--        <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">--}}
 
         
         <script type="module">
@@ -59,6 +63,7 @@
         @stack('scripts')
         
         <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+
         
         @if (session()->has('success')) 
             <script>

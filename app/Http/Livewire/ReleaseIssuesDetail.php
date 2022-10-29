@@ -26,7 +26,7 @@ class ReleaseIssuesDetail extends Component
     public function mount(Release $release)
     {
         $this->release = $release;
-        $issues = Issue::orderBy('key', 'desc')->get();
+        $issues = Issue::orderBy('key', 'desc')->get()->take(20);
 
         foreach($issues as $issue) {
             $this->issuesForSelect[] = [

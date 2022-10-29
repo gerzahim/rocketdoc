@@ -28,13 +28,7 @@ class JiraService {
             return [];
         }
 
-        // trim both sides of the string
-        $key = trim($key);
-
-        if ( ! str_contains($key, '-')) {
-            // if key does not contain dash, add TSV4- prefix, TSV4-3333
-            $key = 'TSV4-'.$key;
-        }
+        $key = $this->formatKey($key);
 
         //uri= https://paperstreet.atlassian.net/rest/api/3/issue/TSV4-3333
         $uri = $this->apiBaseUrl.'/issue/'.$key;
@@ -64,5 +58,19 @@ class JiraService {
         }  catch (\GuzzleHttp\Exception\RequestException $e) {
             return [];
         }
+    }
+
+
+    // clean Key string
+    public function formatKey($key)
+    {
+        // trim both sides of the string
+        $key = trim($key);
+
+        if ( ! str_contains($key, '-')) {
+            // if key does not contain dash, add TSV4- prefix, TSV4-3333
+            $key = 'TSV4-'.$key;
+        }
+        return $key;
     }
 }
